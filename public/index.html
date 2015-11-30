@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="klarifyApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Klarify</title>
+  <!-- bower_components css -->
+  <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+  
+  <!-- Compiled scss -->
+  <link rel="stylesheet" href="css/global.css">
+  
+  <!-- bower_components scripts -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script>
+  
+  <!-- Angular app and components -->
+  <script src="app/app.js"></script>
+  <script src="app/routes/main.js"></script>
+  <script src="app/routes/home/home.js"></script>
+  
+  <script src="app/directives/kBlockButton/kBlockButton.directive.js"></script>
+  
+  <script src="app/services/Auth/Auth.service.js"></script>
+  
+</head>
+<body>
+  <div ui-view></div>
+</body>
+</html>

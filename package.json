@@ -1,0 +1,47 @@
+{
+  "name": "klarify-scheduler",
+  "version": "1.0.0",
+  "description": "```",
+  "main": "server/app.js",
+  "dependencies": {
+    "bluebird": "^3.0.5",
+    "body-parser": "^1.14.1",
+    "chalk": "^1.1.1",
+    "composable-middleware": "^0.3.0",
+    "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.4.1",
+    "later": "^1.2.0",
+    "lodash": "^3.10.1",
+    "mongodb": "^2.0.49",
+    "mongoose": "^4.2.8",
+    "morgan": "^1.6.1",
+    "request": "^2.67.0",
+    "winston": "^2.1.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.1.0",
+    "shelljs": "^0.5.3"
+  },
+  "scripts": {
+    "run": "node server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kugghuset/klarify-scheduler.git"
+  },
+  "keywords": [
+    "klarify",
+    "scheduler",
+    "klarify-scheduler"
+  ],
+  "author": "Kristoffer Ostlund",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kugghuset/klarify-scheduler/issues"
+  },
+  "homepage": "https://github.com/Kugghuset/klarify-scheduler#readme"
+}

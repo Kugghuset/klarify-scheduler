@@ -1,0 +1,27 @@
+/*
+Imported the partials goes here here.
+They're imported from top to bottom.
+variables, mixins and such can only be accessed by partials "below" where it's found.
+*/
+@import 'variables';
+@import 'mixins/mixins';
+@import 'header';
+@import 'block_button';
+
+// Styling goes here
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: $color-body;
+  background-color: $color-background;
+}
+
+.content-area {
+  width: $width-l;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: $size-m;
+}

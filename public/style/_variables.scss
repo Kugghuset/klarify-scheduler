@@ -1,0 +1,27 @@
+/*
+Variables should be prefixed with the type, 
+e.g. $color-body, $box-shadow-default
+*/
+
+// Sizes - only as an example, feel free to modify
+$size-xl: 45px;
+$size-l: 30px;
+$size-m: 20px;
+$size-s: 15px;
+$size-xs: 10px;
+
+// Widths - only as an example, feel free to modify
+$width-s: 535px;
+$width-ms: 768px;
+$width-m: 900px;
+$width-l: 1100px;
+
+// Colors - only as an example, feel free to modify
+$color-background: #fafafa;
+$color-body: #404040;
+$color-decor: #a8a8a8;
+
+// Misc - only as an example, feel free to modify
+$hr-default: 1px solid $color-decor;
+$box-shadow-default: 2px 5px 15px rgba(0,0,0,0.2);
+$box-shadow-thick: 2px 10px 15px rgba(0,0,0,0.2);

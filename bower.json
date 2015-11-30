@@ -1,0 +1,30 @@
+{
+  "name": "klarify-scheduler",
+  "description": "```",
+  "main": "server/app.js",
+  "authors": [
+    "Kristoffer Ostlund"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "klarify",
+    "scheduler",
+    "klarify-scheduler"
+  ],
+  "homepage": "https://github.com/Kugghuset/klarify-scheduler",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1",
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-cookies": "~1.4.8",
+    "normalize-css": "~3.0.3"
+  }
+}
