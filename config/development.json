@@ -1,0 +1,17 @@
+{
+    "web": {
+        "host": "localhost",
+        "port": 4000,
+        "url": "http://localhost:5000"
+    },
+    "dbs": {
+        "mongodb": {
+            "url": "mongodb://localhost:27017/klarify_dev",
+            "host": "localhost",
+            "port": 27017,
+            "database": "klarify_dev",
+            "username": "",
+            "password": ""
+        }
+    }
+}

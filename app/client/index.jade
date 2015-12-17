@@ -1,0 +1,15 @@
+doctype
+html(lang='en', ng-app='klarifyApp')
+    head
+        include views/public/partials/_meta
+        //link(rel='shortcut icon', href='../images/favicon.ico')
+        title Klarify Scheduler
+    body(data-ng-cloak = '')
+        //add header bar directive named nav-bar
+        #wrap.ng-cloak
+          nav-bar
+
+          div(ui-view)
+          .push
+        footer-bar
+        script(type="text/javascript", src="./app.js")
