@@ -8,9 +8,10 @@ html(lang='en', ng-app='klarifyApp')
         //add header bar directive named nav-bar
         #wrap.ng-cloak
           nav-bar
-
-          div(ui-view)
+              include views/public/partials/_header
+            div(ui-view)
           .push
         footer-bar
+            include views/public/partials/_footer
         script(type="text/javascript", src="./app.js")
         link(href="css/main.css", rel="stylesheet")
