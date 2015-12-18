@@ -35,7 +35,11 @@ angular
                 template: require('./views/public/login.jade'),
                 controller: 'RegisterCtrl'
             });
-
+            $stateProvider.state('forgot-password', {
+                url: '/forgot-password',
+                template: require('./views/public/forgot-password.jade'),
+                controller: 'RegisterCtrl'
+            });
 
             // Adds authInterceptor to http requests
             $httpProvider.interceptors.push('authInterceptor');

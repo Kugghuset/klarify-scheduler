@@ -4,9 +4,10 @@
             .form-group(data-ng-class = "{'has-error': regForm.email.$dirty && regForm.email.$invalid }")
                 label.txt-light-green
                     | Email Address*
-                input.form-control(type = 'email', name = 'email', data-ng-model = 'user.username', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
-                div(data-ng-show = 'regForm.email.$dirty && regForm.email.$invalid')
-                    span.help-block(ng-show = '!regForm.email.hasFocus') Please enter a valid email address.
+                input.form-control(type = 'email', name = 'email', ng-pattern = 'emailPattern', data-ng-model = 'user.username', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
+                div(data-ng-show = 'regForm.email.$dirty && regForm.email.$invalid || regForm.email.$error.pattern')
+                    span.help-block(data-ng-show = '!regForm.email.hasFocus && regForm.email.$error.required') Required
+                    span.help-block(ng-show = '!regForm.email.hasFocus && regForm.email.$error.pattern') Please enter a valid email address.
             .form-group(data-ng-class = "{'has-error': regForm.password.$dirty && regForm.password.$invalid}")
                 label.txt-light-green
                     | Password*
