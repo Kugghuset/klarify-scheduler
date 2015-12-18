@@ -2,7 +2,6 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var config = require('config');
 var logger = require('./utils/logger.util.js');
 

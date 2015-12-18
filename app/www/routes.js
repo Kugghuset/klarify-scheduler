@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var express = require('express');
 var morgan = require('morgan');
@@ -13,10 +13,10 @@ var root = path.resolve();
 module.exports = function (app, logger) {
   // Front end app
   app.use(express.static(root + '/build'));
-  
+
   // Logging for API routes
   app.use(morgan('combined', { stream: logger.stream }));
-  
+
   // Backend routes/modules below
   app.use('/api/endpoints', require('./api/endpoint/index'));
-}
+};
