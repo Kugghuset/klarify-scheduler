@@ -23,6 +23,12 @@ angular
                 template: require('./views/public/home.jade'),
                 controller: 'HomeCtrl'
             });
+            $stateProvider.state('register', {
+                url: '/register',
+                template: require('./views/public/register.jade'),
+                controller: 'RegisterCtrl'
+            });
+
 
             // Adds authInterceptor to http requests
             $httpProvider.interceptors.push('authInterceptor');
