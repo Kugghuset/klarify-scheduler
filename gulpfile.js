@@ -109,8 +109,7 @@ gulp.task('bundle', function (cb) {
 // Launch a Node.js/express server
 gulp.task('serve', ['build:watch'], function (cb) {
     src.server = [
-        'app/www/**/*',
-        'build/**/*'
+        'app/www/**/*'
     ];
 
     var started = false;
