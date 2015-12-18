@@ -38,7 +38,7 @@ exports.isAuthenticated = function (req, res, next) {
  */
 exports.decodeToken = function (req) {
   var token = (req && req.headers) ? req.headers.authorization : req;
-  return jwt.decode(token, config.secrets.session);
+  return jwt.decode(token, Config.secrets.session);
 }
 
 /**
@@ -48,7 +48,7 @@ exports.decodeToken = function (req) {
  * @return {Object} jwt token
  */
 exports.signToken = function (options) {
-  return jwt.sign(options, config.secrets.session, { expiresIn: 60 * 60 * 24 * 365 });
+  return jwt.sign(options, Config.secrets.session, { expiresIn: 60 * 60 * 24 * 365 });
 };
 
 /**
