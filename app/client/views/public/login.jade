@@ -1,0 +1,20 @@
+.container
+    .well.col-md-6
+        form(name = 'logForm', novalidate = 'novalidate')
+            .form-group(data-ng-class = "{'has-error': logForm.email.$dirty && logForm.email.$invalid }")
+                label.txt-light-green
+                    | Email Address
+                input.form-control(type = 'email', name = 'email', data-ng-model = 'user.username', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
+                div(data-ng-show = 'logForm.email.$dirty && logForm.email.$invalid')
+                    span.help-block(data-ng-show = '!logForm.email.hasFocus && logForm.email.$error.required') Required
+                    span.help-block(ng-show = '!logForm.email.hasFocus') Please enter a valid email address.
+            .form-group(data-ng-class = "{'has-error': logForm.password.$dirty && logForm.password.$invalid}")
+                label.txt-light-green
+                    | Password*
+                input.form-control(type = 'password', name = 'password', data-ng-model = 'user.password', placeholder = 'Enter Password...', required = 'required', data-ng-minlength = '6', autocomplete = 'off')
+                div(data-ng-show = 'logForm.password.$dirty && logForm.password.$invalid')
+                    span.help-block(data-ng-show = '!logForm.password.hasFocus && logForm.password.$error.required') Required
+                    span.help-block(data-ng-show = '!logForm.password.hasFocus && logForm.password.$error.minlength') Your password must be at least 6 characters.
+                br
+                input.btn.btn-primary.pull-right(type = "submit", value = "Save", data-ng-disabled = "logForm.$invalid")
+

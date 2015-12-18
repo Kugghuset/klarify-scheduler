@@ -1,18 +1,27 @@
-form
-    .form-group
-        label.col-sm-3.control-label(for='email') Email
-        .col-sm-7
-            input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus)
-    .form-group
-        label.col-sm-3.control-label(for='password') Password
-        .col-sm-7
-            input.form-control(type='password', name='password', id='password', placeholder='Password')
-    .form-group
-        label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-        .col-sm-7
-            input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password')
-    .form-group
-        .col-sm-offset-3.col-sm-7
-            button.btn.btn-success(type='submit')
-                i.fa.fa-user-plus
-                | Signup
+.container
+    .well.col-md-6
+        form(name = 'regForm', novalidate = 'novalidate')
+            .form-group(data-ng-class = "{'has-error': regForm.email.$dirty && regForm.email.$invalid }")
+                label.txt-light-green
+                    | Email Address*
+                input.form-control(type = 'email', name = 'email', data-ng-model = 'user.username', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
+                div(data-ng-show = 'regForm.email.$dirty && regForm.email.$invalid')
+                    span.help-block(ng-show = '!regForm.email.hasFocus') Please enter a valid email address.
+            .form-group(data-ng-class = "{'has-error': regForm.password.$dirty && regForm.password.$invalid}")
+                label.txt-light-green
+                    | Password*
+                input.form-control(type = 'password', name = 'password', data-ng-model = 'user.password', placeholder = 'Enter Password...', required = 'required', data-ng-minlength = '6', autocomplete = 'off')
+                div(data-ng-show = 'regForm.password.$dirty && regForm.password.$invalid')
+                    span.help-block(data-ng-show = '!regForm.password.hasFocus && regForm.password.$error.required') Required
+                    span.help-block(data-ng-show = '!regForm.password.hasFocus && regForm.password.$error.minlength') Your password must be at least 6 characters.
+            .form-group(data-ng-class = "{'has-error': regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid}")
+                label.txt-light-green
+                    | Confirm Password*
+                input.form-control(type = 'password', name = 'passwordConfirm', data-ng-model = 'user.passwordConfirm', placeholder = 'Confirm Password', required = 'required', data-ng-minlength = '6', data-equal-to = 'password', autocomplete = 'off')
+                div(data-ng-show = 'regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid')
+                    span.help-block(data-ng-show = '!regForm.passwordConfirm.hasFocus && regForm.passwordConfirm.$error.required') Required
+                    span.help-block(data-ng-show = '!regForm.passwordConfirm.hasFocus && regForm.passwordConfirm.$error.equalto') The passwords entered do not match. Please re-enter your passwords.
+
+                br
+                input.btn.btn-primary.pull-right(type = "submit", value = "Save", data-ng-disabled = "regForm.$invalid")
+

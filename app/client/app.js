@@ -30,6 +30,11 @@ angular
                 template: require('./views/public/register.jade'),
                 controller: 'RegisterCtrl'
             });
+            $stateProvider.state('login', {
+                url: '/login',
+                template: require('./views/public/login.jade'),
+                controller: 'RegisterCtrl'
+            });
 
 
             // Adds authInterceptor to http requests
