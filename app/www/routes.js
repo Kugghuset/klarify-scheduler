@@ -18,5 +18,5 @@ module.exports = function (app, logger) {
   app.use(morgan('combined', { stream: logger.stream }));
 
   // Backend routes/modules below
-  app.use('/api/endpoints', require('./api/endpoint/index'));
+  app.use('/api/session', require('./controllers/session'));
 };

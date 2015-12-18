@@ -2,29 +2,40 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var config = require('config');
+var Config = require('config');
 var logger = require('./utils/logger.util.js');
+var DB = require('./db');
+var cookieParser = require('cookie-parser');
+
+var app = express();
+
+require('./routes')(app, logger);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
-module.exports = function (cb) {
-    var app = express();
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
 
-    require('./routes')(app, logger);
+// Passport setup
+require('./auth/passport-setup')(app);
 
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
+var server = app.listen(Config.web.port, function () {
+    console.log('App listening on port %s', Config.web.port);
+    process.send('online');
+});
 
-    var server = app.listen(config.web.port, function () {
-        console.log('App listening on port %s', config.web.port);
-        process.send('online');
+var stop = function () {
+    server.close(function () {
+        console.log( "Server stopped");
+        DB.mongoose.disconnect();
     });
-
-    var stop = function () {
-        server.close(function () {
-            console.log( "Server stopped");
-        });
-    };
-
-    process.on('SIGTERM', stop);
-    process.on('SIGINT', stop);
 };
+
+process.on('SIGTERM', stop);
+process.on('SIGINT', stop);

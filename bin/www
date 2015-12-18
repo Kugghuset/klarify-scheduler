@@ -3,5 +3,4 @@
 'use strict';
 
 require('./env-args');
-var server = require('../app/www/server');
-server();
+require('../app/www/server');
