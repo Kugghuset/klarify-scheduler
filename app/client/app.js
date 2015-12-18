@@ -1,8 +1,10 @@
 'use strict';
 
+window.$ = window.jQuery = require('../../bower_components/jquery/dist/jquery');
 require('../../bower_components/angular');
 require('../../bower_components/angular-ui-router/release/angular-ui-router');
 require('../../bower_components/angular-cookies');
+require('../../bower_components/bootstrap/dist/js/bootstrap.js');
 
 angular
     .module('klarifyApp', [

@@ -39,7 +39,7 @@ exports.isAuthenticated = function (req, res, next) {
 exports.decodeToken = function (req) {
   var token = (req && req.headers) ? req.headers.authorization : req;
   return jwt.decode(token, Config.secrets.session);
-}
+};
 
 /**
  * Returns a jwt token signed by the app secret
@@ -63,4 +63,4 @@ exports.setTokenCookie = function (req, res) {
   var token = this.signToken({ _id: req.user._id });
 
   res.cookie('token', token);
-}
+};

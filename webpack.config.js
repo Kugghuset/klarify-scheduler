@@ -26,10 +26,6 @@ module.exports = {
 
         loaders: [
             {
-                test: /\.scss$/,
-                loader: 'style!css!sass' + AUTOPREFIXER_LOADER
-            },
-            {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules|bower_components/
