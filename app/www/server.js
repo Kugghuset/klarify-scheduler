@@ -9,12 +9,10 @@ var cookieParser = require('cookie-parser');
 
 var app = express();
 
-require('./routes')(app, logger);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+require('./routes')(app, logger);
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
@@ -33,7 +31,9 @@ var server = app.listen(Config.web.port, function () {
 var stop = function () {
     server.close(function () {
         console.log( "Server stopped");
-        DB.mongoose.disconnect();
+        DB.mongoose.disconnect(function () {
+            console.log('Connection with database closed.')
+        });
     });
 };
 

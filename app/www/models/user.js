@@ -6,18 +6,27 @@ var UserSchema = new Schema ({
     firstName                   : { type: String, required: true },
     lastName                    : { type: String, required: true },
     email                       : { type: String, required: true },
-    password                    : { type: String, required: false }
+    password                    : { type: String, required: true },
+    createdAt                   : { type: Date, required: true}
 });
+
 UserSchema.indexes({ email: 1, unique: true });
 
 //save User.
-UserSchema.statics.saveUser = function(requestData, callback) {
+UserSchema.statics.register = function(requestData, callback) {
     this.create(requestData, callback);
 };
 
-var user = mongoose.model('user', UserSchema);
+UserSchema.statics.clean = function(requestData, cb) {
+    var user = requestData.toObject();
+    delete user.__v;
+    delete user.password;
+    delete user.createdAt;
+
+    cb(user);
+
+};
+
 
 /** export schema */
-module.exports = {
-    User : user
-};
+module.exports = mongoose.model('user', UserSchema);

@@ -1,5 +1,5 @@
 var passport = require('passport'),
-    JwtStrategy = require('passport-jwt').Strategy,
+    JwtStrategy = require('passport-local').Strategy,
     Config = require('config');
 var account = require('./account');
 var User = require('../models/user');
@@ -14,9 +14,8 @@ module.exports = function (app) {
     app.use(passport.session());
 
     passport.use(new JwtStrategy(options,
-        function(jwt_payload, done) {
-
-            User.findOne({id: jwt_payload.sub}, function(err, user) {
+        function(username, password, done) {
+            User.findOne({email: username}, function(err, user) {
                 if (err) {
                     return done(err, false);
                 }

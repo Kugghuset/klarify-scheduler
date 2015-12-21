@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
@@ -49,13 +49,6 @@ gulp.task('styles', function () {
         .pipe($.size({title: 'styles'}));
 });
 
-// compile all view pages.
-gulp.task('views', function() {
-    return gulp.src('app/client/views/**/*.jade')
-        .pipe($.jade())
-        .pipe(gulp.dest('build/views/'));
-});
-
 // compile Index page.
 gulp.task('jade', function() {
     return gulp.src('app/client/index.jade')
@@ -65,7 +58,7 @@ gulp.task('jade', function() {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['styles', 'views', 'jade', 'bundle'], cb);
+    runSequence(['styles', 'jade', 'bundle'], cb);
 });
 
 // Build and start watching for modifications
@@ -73,7 +66,6 @@ gulp.task('build:watch', function (cb) {
     watch = true;
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
-        gulp.watch(src.styles, ['views']);
         cb();
     });
 });

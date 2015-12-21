@@ -11,12 +11,14 @@ var root = path.resolve();
  * @param {Object} logger - logger from utils.logger
  */
 module.exports = function (app, logger) {
-  // Front end app
-  app.use(express.static(root + '/build'));
+    // Front end app
+    app.use(express.static(root + '/build'));
 
-  // Logging for API routes
-  app.use(morgan('combined', { stream: logger.stream }));
+    // Logging for API routes
+    app.use(morgan('combined', { stream: logger.stream }));
 
-  // Backend routes/modules below
-  app.use('/api/session', require('./controllers/session'));
+    // Backend routes/modules below
+    app.use('/api/session', require('./controllers/session'));
+
+    app.use('/api/accounts', require('./controllers/accounts'));
 };
