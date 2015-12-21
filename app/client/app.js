@@ -4,7 +4,6 @@ window.$ = window.jQuery = require('../../bower_components/jquery/dist/jquery');
 require('../../bower_components/angular');
 require('../../bower_components/angular-ui-router/release/angular-ui-router');
 require('../../bower_components/angular-cookies');
-require('../../bower_components/angular-superagent');
 require('../../bower_components/bootstrap/dist/js/bootstrap.js');
 
 angular
@@ -34,12 +33,7 @@ angular
             $stateProvider.state('login', {
                 url: '/login',
                 template: require('./views/public/login.jade'),
-                controller: 'RegisterCtrl'
-            });
-            $stateProvider.state('forgot-password', {
-                url: '/forgot-password',
-                template: require('./views/public/forgot-password.jade'),
-                controller: 'RegisterCtrl'
+                controller: 'LoginCtrl'
             });
 
             // Adds authInterceptor to http requests

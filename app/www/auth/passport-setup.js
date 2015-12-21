@@ -1,30 +1,31 @@
-var passport = require('passport'),
-    JwtStrategy = require('passport-local').Strategy,
-    Config = require('config');
-var account = require('./account');
-var User = require('../models/user');
+var passport        = require('passport'),
+    JwtStrategy     = require('passport-jwt').Strategy,
+    Config          = require('config'),
+    account         = require('./account'),
+    User            = require('../models/user');
 
 module.exports = function (app) {
 
     var options = {
-        secretOrKey: Config.appSecret
+        secretOrKey: Config.appSecret,
+        authScheme: 'Bearer'
     };
 
     app.use(passport.initialize());
     app.use(passport.session());
 
     passport.use(new JwtStrategy(options,
-        function(username, password, done) {
-            User.findOne({email: username}, function(err, user) {
+        function(user, done) {
+            User.findOne({_id: user.id}, function(err, user) {
                 if (err) {
                     return done(err, false);
                 }
-                if (user) {
-                    done(null, user);
-                } else {
-                    done(null, false);
-                    // or you could create a new account
+                if (!user) {
+                    return done(null, false, { message: 'Session expired.' });
                 }
+
+                return done(null, user);
+
             });
         }
     ));

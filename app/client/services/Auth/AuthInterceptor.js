@@ -8,13 +8,13 @@ angular
             request: function (config) {
                 config.headers = config.headers || {};
 
-                config.headers.Authorization = 'Bearer ' + $cookies.get('token') || '';
+                config.headers.authorization = 'Bearer ' + $cookies.get('token') || '';
                 return config;
             },
             // Intercepts 401s and redirects to home
             responseError: function (response) {
                 if (response.status === 401) {
-                    $location.path('/hem');
+                    $location.path('/login');
                     $cookies.remove('token');
                 }
 

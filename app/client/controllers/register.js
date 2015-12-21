@@ -21,6 +21,6 @@ angular.module('klarifyApp')
                         .catch(function (err) {
                             return console.log('error:', err);
                         });
-                }
+                };
             }
         ]);

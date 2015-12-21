@@ -5,24 +5,10 @@ var router = express.Router();
 var User = require('../models/user');
 var CryptHelper = require('../helpers/crypt');
 var validate = require('express-validation');
-var Joi = require('joi');
 var Roles = require('../helpers/roles');
 
-var validation = {
-    register: {
-        body: {
-            firstName           : Joi.string().required().label('First Name'),
-            lastName            : Joi.string().required().label('Last Name'),
-            email               : Joi.string().email().required().label('Email'),
-            password            : Joi.string().min(6).required().label('Password'),
-            confirmPassword     : Joi.any().valid(Joi.ref('password')).required().label('Password Confirmation'),
-            createdAt           : Joi.date().default(new Date(), 'time of creation')
-        }
-    }
-};
 
-
-router.post('/register', validate(validation.register), function(req, res) {
+router.post('/register', validate(require('./validations/register')), function(req, res) {
     var payload = req.body;
 
     if(payload && payload.email) {
