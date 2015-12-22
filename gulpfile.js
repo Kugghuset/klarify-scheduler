@@ -59,7 +59,8 @@ gulp.task('styles', function () {
 
 // compile Index page.
 gulp.task('jade', function() {
-    return gulp.src('app/client/index.jade')
+    src.index = 'app/client/index.jade';
+    return gulp.src(src.index)
         .pipe($.jade())
         .pipe(gulp.dest('build/'));
 });
@@ -85,7 +86,7 @@ gulp.task('build:watch', function (cb) {
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
         gulp.watch(src.views, ['views']);
-        gulp.watch(src.layout, ['jade']);
+        gulp.watch([src.layout, src.index], ['jade']);
         cb();
     });
 });
