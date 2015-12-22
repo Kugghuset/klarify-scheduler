@@ -6,7 +6,8 @@ angular
         'dashboardCtrl',
         [
             '$scope',
-            function ($scope) {
-
+            'Auth',
+            '$rootScope',
+            function ($scope, Auth, $rootScope) {
             }
         ]);

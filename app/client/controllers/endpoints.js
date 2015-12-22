@@ -1,10 +1,15 @@
+'use strict';
+
 angular
     .module('klarifyApp')
     .controller(
-        'LeftNavCtrl',
+        'endpointsCtrl',
         [
             '$scope',
             function ($scope) {
-                console.log('Left nav ctrl');
+
+                $scope.createEndpoint = function () {
+
+                }
             }
         ]);

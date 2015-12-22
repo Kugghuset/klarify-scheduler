@@ -1,6 +1,6 @@
 'use strict';
 
-var Bcrypt = require('bcrypt');
+var Bcrypt = require('bcryptjs');
 var Crypto = require('crypto');
 var uuid = require('uuid');
 var Config = require('config');

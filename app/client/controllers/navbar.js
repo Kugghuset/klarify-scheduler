@@ -12,7 +12,7 @@ angular
             'toaster',
             function($scope, $rootScope, Auth, $location, toaster) {
                 $rootScope.$on('AuthLoggedIn', function () {
-                    $location.path('/user/dashboard');
+                    $scope.user = Auth.getCurrentUser();
                 });
 
                 $rootScope.$on('$stateChangeSuccess', function () {

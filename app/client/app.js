@@ -22,25 +22,37 @@ angular
             ///////////////////PUBLIC ROUTES//////////////////////////
             $stateProvider.state('home', {
                 url: '/home',
-                template: require('./views/public/home.jade')
+                templateUrl: './views/public/home.html'
             });
 
             $stateProvider.state('register', {
                 url: '/register',
-                template: require('./views/public/register.jade'),
+                templateUrl:'./views/public/register.html',
                 controller: 'RegisterCtrl'
             });
 
             $stateProvider.state('login', {
                 url: '/login',
-                template: require('./views/public/login.jade'),
+                templateUrl: './views/public/login.html',
                 controller: 'LoginCtrl'
             });
 
             ///////////////////USER ROUTES///////////////////////////
             $stateProvider.state('dashboard', {
                 url: '/user/dashboard',
-                template: require('./views/user/dashboard.jade'),
+                templateUrl: './views/user/dashboard.html',
+                controller: 'dashboardCtrl'
+            });
+
+            $stateProvider.state('endpoints', {
+                url: '/user/endpoints',
+                templateUrl: './views/user/endpoints.html',
+                controller: 'endpointsCtrl'
+            });
+
+            $stateProvider.state('crons', {
+                url: '/user/crons',
+                templateUrl: './views/user/crons.html',
                 controller: ''
             });
 

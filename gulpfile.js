@@ -32,6 +32,14 @@ gulp.task('default', ['sync']);
 // Clean output directory
 gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '!build/.git'], {dot: true}));
 
+// 3rd party libraries
+gulp.task('vendor', function () {
+    return gulp.src([
+            'bower_components/bootstrap/dist/fonts/**',
+            'bower_components/font-awesome/fonts/**'
+        ])
+        .pipe(gulp.dest('build/fonts'));
+});
 
 // CSS style sheets
 gulp.task('styles', function () {
@@ -61,20 +69,23 @@ gulp.task('views', function() {
     src.views = 'app/client/views/**/*.jade';
     return gulp
             .src(src.views)
+            .pipe($.jade())
             .pipe(gulp.dest('build/views'));
 });
 
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['styles', 'jade', 'views', 'bundle'], cb);
+    runSequence(['vendor', 'styles', 'jade', 'views', 'bundle'], cb);
 });
 
 // Build and start watching for modifications
 gulp.task('build:watch', function (cb) {
     watch = true;
+    src.layout = 'app/client/layout/*.jade';
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
         gulp.watch(src.views, ['views']);
+        gulp.watch(src.layout, ['jade']);
         cb();
     });
 });
