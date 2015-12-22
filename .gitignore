@@ -1,7 +1,6 @@
 logs
 *.log
+.idea
 node_modules
-**/bower_components
-**/typings
-userConfig.js
-**/public/css
+bower_components
+build
