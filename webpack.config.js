@@ -23,6 +23,13 @@ module.exports = {
         reasons: DEBUG
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules|bower_components/,
+                loader: 'eslint-loader'
+            }
+        ],
 
         loaders: [
             {

@@ -61,7 +61,7 @@ gulp.task('views', function() {
     src.views = 'app/client/views/**/*.jade';
     return gulp
             .src(src.views)
-            .pipe(gulp.dest('build/'));
+            .pipe(gulp.dest('build/views'));
 });
 
 // Build the app from source code
