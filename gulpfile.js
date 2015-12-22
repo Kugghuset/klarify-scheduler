@@ -58,7 +58,7 @@ gulp.task('jade', function() {
 
 // compile views page.
 gulp.task('views', function() {
-    src.views = 'app/views/**/*.jade';
+    src.views = 'app/client/views/**/*.jade';
     return gulp
             .src(src.views)
             .pipe(gulp.dest('build/'));
