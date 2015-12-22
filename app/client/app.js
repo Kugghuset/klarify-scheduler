@@ -17,24 +17,34 @@ angular
         '$httpProvider',
         function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
-            $urlRouterProvider
-                .otherwise('/home');
-
+            ///////////////////PUBLIC ROUTES//////////////////////////
             $stateProvider.state('home', {
                 url: '/home',
-                template: require('./views/public/home.jade'),
-                controller: 'HomeCtrl'
+                template: require('./views/public/home.jade')
             });
+
             $stateProvider.state('register', {
                 url: '/register',
                 template: require('./views/public/register.jade'),
                 controller: 'RegisterCtrl'
             });
+
             $stateProvider.state('login', {
                 url: '/login',
                 template: require('./views/public/login.jade'),
                 controller: 'LoginCtrl'
             });
+
+            ///////////////////USER ROUTES///////////////////////////
+            $stateProvider.state('dashboard', {
+                url: '/user/dashboard',
+                template: require('./views/user/dashboard.jade'),
+                controller: ''
+            });
+
+            //otherwise redirect to homepage
+            $urlRouterProvider
+                .otherwise('/home');
 
             // Adds authInterceptor to http requests
             $httpProvider.interceptors.push('authInterceptor');

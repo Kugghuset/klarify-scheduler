@@ -4,7 +4,9 @@ nav.navbar.navbar-default(ng-controller='navbarCtrl')
         .container
             a.navbar-brand(href='#') Klarify Scheduler
             ul.nav.navbar-nav.pull-right
-                li
+                li(ng-hide='isLoggedIn')
                     a(href='#/register') Sign Up
-                li
+                li(ng-hide='isLoggedIn')
                     a(href='#/login') Sign In
+                li(ng-show='isLoggedIn')
+                    a(href='javascript:void(0);' ng-click='logout()') Sign Out

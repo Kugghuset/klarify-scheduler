@@ -9,7 +9,10 @@ var Config = require('config');
 var User = require('../models/user');
 
 router.get('/', require('../auth/auth-middleware'), function(req, res) {
-    res.json(req.user);
+    User
+        .clean(req.user, function(data) {
+            res.send(data);
+        });
 });
 
 router.post('/sign-in', validate(require('./validations/sign-in')),  function(req, res) {

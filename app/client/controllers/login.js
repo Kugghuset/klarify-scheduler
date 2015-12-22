@@ -6,7 +6,8 @@ angular
             '$scope',
             '$http',
             '$cookies',
-            function ($scope, $http, $cookies) {
+            '$location',
+            function ($scope, $http, $cookies, $location) {
                 $scope.login = function () {
                     $http
                         .post('/api/session/sign-in', $scope.user)
@@ -14,14 +15,7 @@ angular
                             $scope.user = {};
                             $scope.loginForm.$setPristine();
                             $cookies.put('token', success.data);
-
-                            console.log($cookies.get('token'));
-
-                            $http
-                                .get('/api/session')
-                                .then(function() {
-                                    console.log(arguments);
-                                });
+                            $location.path('/user/dashboard');
                         })
                         .catch(function (err) {
                             return console.log('error:', err);

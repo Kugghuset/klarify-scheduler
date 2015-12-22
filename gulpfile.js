@@ -56,9 +56,17 @@ gulp.task('jade', function() {
         .pipe(gulp.dest('build/'));
 });
 
+// compile views page.
+gulp.task('views', function() {
+    src.views = 'app/views/**/*.jade';
+    return gulp
+            .src(src.views)
+            .pipe(gulp.dest('build/'));
+});
+
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['styles', 'jade', 'bundle'], cb);
+    runSequence(['styles', 'jade', 'views', 'bundle'], cb);
 });
 
 // Build and start watching for modifications
@@ -66,6 +74,7 @@ gulp.task('build:watch', function (cb) {
     watch = true;
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
+        gulp.watch(src.views, ['views']);
         cb();
     });
 });

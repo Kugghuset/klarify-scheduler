@@ -6,7 +6,21 @@ angular
         'navbarCtrl',
         [
             '$scope',
-            function($scope) {
-                console.log('navbar ctrl');
+            '$rootScope',
+            'Auth',
+            '$location',
+            function($scope, $rootScope, Auth, $location) {
+                $rootScope.$on('AuthLoggedIn', function () {
+                    $location.path('/user/dashboard');
+                });
+
+                $rootScope.$on('$stateChangeSuccess', function () {
+                    $scope.isLoggedIn = Auth.isLoggedIn();
+                });
+
+                $scope.logout = function () {
+                    Auth.logout();
+                    $location.path('/');
+                }
             }
         ]);

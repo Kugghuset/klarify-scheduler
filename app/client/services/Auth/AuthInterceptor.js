@@ -22,15 +22,21 @@ angular
             }
         }
     }])
-    .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+    .run(['$rootScope', '$location', 'Auth', '$http', function ($rootScope, $location, Auth, $http) {
 
         // Add location change interceptors here.
         // e.x. checking for LoggedIn or something.
 
-        console.log(Auth.isLoggedIn() ? 'A token is stored as a cookie.' : 'No token stored.');
+        $rootScope.$on('$stateChangeSuccess', function () {
 
-        $rootScope.$on('$stateChangeSuccess', function (event, net, params) {
-
+            if (Auth.isLoggedIn() && !Auth.getCurrentUser()) {
+                $http
+                    .get('/api/session')
+                    .then(function (user) {
+                        Auth.setUser(user.data);
+                        $rootScope.$broadcast('AuthLoggedIn');
+                    });
+            }
             window.scrollTo(0,0);
         });
     }]);
