@@ -24,14 +24,14 @@ router.post('/sign-in', validate(require('./validations/sign-in')),  function(re
                 return res.status(500).json(err);
             }
             if (!user) {
-                return res.status(401).json({ message: 'Incorrect username/password.' });
+                return res.status(401).json('Incorrect username/password.');
             }
 
             CryptHelper
                 .compareHash(payload.password, user.password)
                 .then(function (match) {
                     if(!match) {
-                        return res.status(401).json({ message: 'Incorrect username/password.' });
+                        return res.status(401).json('Incorrect username/password.');
                     }
 
                     jwt.sign({id: user._id}, Config.appSecret, {}, function (token) {

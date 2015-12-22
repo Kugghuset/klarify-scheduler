@@ -9,7 +9,8 @@ angular
             '$rootScope',
             'Auth',
             '$location',
-            function($scope, $rootScope, Auth, $location) {
+            'toaster',
+            function($scope, $rootScope, Auth, $location, toaster) {
                 $rootScope.$on('AuthLoggedIn', function () {
                     $location.path('/user/dashboard');
                 });
@@ -20,6 +21,12 @@ angular
 
                 $scope.logout = function () {
                     Auth.logout();
+                    toaster.pop({
+                        type: 'info',
+                        title: 'Info',
+                        body: 'Logged out',
+                        showCloseButton: true
+                    });
                     $location.path('/');
                 }
             }

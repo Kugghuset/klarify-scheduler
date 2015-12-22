@@ -1,12 +1,13 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
-var CryptHelper = require('../helpers/crypt');
-var validate = require('express-validation');
-var Roles = require('../helpers/roles');
-
+var express         = require('express');
+var router          = express.Router();
+var User            = require('../models/user');
+var CryptHelper     = require('../helpers/crypt');
+var validate        = require('express-validation');
+var Roles           = require('../helpers/roles');
+var jwt             = require('jsonwebtoken');
+var Config          = require('config');
 
 router.post('/register', validate(require('./validations/register')), function(req, res) {
     var payload = req.body;
@@ -36,8 +37,8 @@ router.post('/register', validate(require('./validations/register')), function(r
                                     return res.status(400).send(err);
                                 }
 
-                                User.clean(user, function(data) {
-                                    res.send(data);
+                                jwt.sign({id: user._id}, Config.appSecret, {}, function (token) {
+                                    res.json(token);
                                 });
                             })
 

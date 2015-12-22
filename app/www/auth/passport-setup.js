@@ -21,7 +21,7 @@ module.exports = function (app) {
                     return done(err, false);
                 }
                 if (!user) {
-                    return done(null, false, { message: 'Session expired.' });
+                    return done(null, false, 'Session expired.');
                 }
 
                 return done(null, user);

@@ -7,7 +7,8 @@ angular
             '$http',
             '$cookies',
             '$location',
-            function ($scope, $http, $cookies, $location) {
+            'toaster',
+            function ($scope, $http, $cookies, $location, toaster) {
                 $scope.login = function () {
                     $http
                         .post('/api/session/sign-in', $scope.user)
@@ -18,7 +19,12 @@ angular
                             $location.path('/user/dashboard');
                         })
                         .catch(function (err) {
-                            return console.log('error:', err);
+                            toaster.pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: err.data,
+                                showCloseButton: true
+                            });
                         });
                 }
             }

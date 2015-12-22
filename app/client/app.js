@@ -5,11 +5,13 @@ require('../../bower_components/angular');
 require('../../bower_components/angular-ui-router/release/angular-ui-router');
 require('../../bower_components/angular-cookies');
 require('../../bower_components/bootstrap/dist/js/bootstrap.js');
+require('../../bower_components/AngularJS-Toaster/toaster');
 
 angular
     .module('klarifyApp', [
         'ui.router',
-        'ngCookies'
+        'ngCookies',
+        'toaster'
     ])
     .config([
         '$stateProvider',
@@ -56,8 +58,8 @@ var services = require.context('./services', true, /.js$/);
 services.keys().forEach(services);
 
 // Directives
-//var directives = require.context('./directives', true, /.js$/);
-//directives.keys().forEach(directives);
+var directives = require.context('./directives', true, /.js$/);
+directives.keys().forEach(directives);
 
 // Filters
 //var filters = require.context('./filters', true, /.js$/);

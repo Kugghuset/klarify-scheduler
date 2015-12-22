@@ -31,10 +31,10 @@
             .form-group(data-ng-class = "{'has-error': regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid}")
                 label.txt-light-green
                     | Confirm Password*
-                input.form-control(type = 'password', name = 'passwordConfirm', data-ng-model = 'user.confirmPassword', placeholder = 'Confirm Password', required = 'required', data-ng-minlength = '6', data-equal-to = 'password', autocomplete = 'off')
+                input.form-control(type = 'password', name='passwordConfirm', data-ng-model='user.confirmPassword', placeholder='Confirm Password', required='required', data-ng-minlength='6', equal-to='password', autocomplete='off')
                 div(data-ng-show = 'regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid')
                     span.help-block(data-ng-show = '!regForm.passwordConfirm.hasFocus && regForm.passwordConfirm.$error.required') Required
-                    span.help-block(data-ng-show = '!regForm.passwordConfirm.hasFocus && regForm.passwordConfirm.$error.equalto') The passwords entered do not match. Please re-enter your passwords.
+                    span.help-block(data-ng-show = '!regForm.passwordConfirm.hasFocus && regForm.passwordConfirm.$error.equalto') The passwords entered do not match.
 
                 br
                 input.btn.btn-primary.pull-right(type="submit", value="Register", data-ng-disabled="regForm.$invalid")

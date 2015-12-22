@@ -27,6 +27,7 @@
     "angular-cookies": "~1.4.8",
     "normalize-css": "~3.0.3",
     "bootstrap": "~3.3.6",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "AngularJS-Toaster": "angularjs-toaster#~0.4.181"
   }
 }
