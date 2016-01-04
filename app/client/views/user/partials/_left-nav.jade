@@ -1,6 +1,15 @@
-div()
-    ul.nav.nav-pills.nav-stacked
+.row
+    div
+        h3 Resources
+    hr
+.row
+    ul.list-unstyled
         li
-            a(href='#/user/endpoints') Endpoints
-        li
-            a(href='#/user/crons') Crons
+            a(href='', ng-click="isCollapsed = !isCollapsed" ng-show="resource.methods || resource.resources")
+                i.fa(data-ng-class="{'fa-caret-right': isCollapsed, 'fa-caret-down': !isCollapsed}")
+            a(href='', ng-click='selectResource(resource)', data-ng-class="{'myClass': resource._id === currentSelection.id && currentSelection.type === 'resource'}")
+                i.fa.fa-cubes
+                    | &nbsp /
+            ul(uib-collapse="isCollapsed")
+                li(ng-repeat='method in resource.methods track by $index' ng-include="'./views/user/partials/method.html'")
+                li(ng-repeat='resource in resource.resources track by $index' ng-include="'./views/user/partials/resource.html'")

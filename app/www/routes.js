@@ -21,4 +21,8 @@ module.exports = function (app, logger) {
     app.use('/api/session', require('./controllers/session'));
 
     app.use('/api/accounts', require('./controllers/accounts'));
+
+    app.use('/api/resources', require('./controllers/resources'));
+
+    app.use('/endpoint', require('./auth/auth-middleware'), require('./controllers/endpoints'));
 };

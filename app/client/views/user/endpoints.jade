@@ -1,11 +1,87 @@
 .container
     .row
-        .col-md-12
-            div
-                button.btn.btn-default.pull-right(ng-click='createEndpoint()')
-                    | Create
-        .col-md-2
+        .col-md-3
             include partials/_left-nav
-        .col-md-10
-            div
-                h3 Endpoints will populate here.
+        .col-md-9
+            .col-md-4
+                h3 {{heading}}
+            .col-md-8(ng-show="view === 'default' || view === 'edit'")
+                .col-md-3(ng-show="currentSelection.type === 'resource'")
+                    button.btn.btn-default.pull-right(ng-click="createItem('method')")
+                        | Create Method
+                .col-md-3(ng-show="currentSelection.type !== 'resource'")
+                    button.btn.btn-default.pull-right(ng-click="deleteMethod()")
+                        | Delete Method
+                .col-md-3(ng-show="currentSelection.type === 'resource'")
+                    button.btn.btn-default.pull-right(ng-click="createItem('resource')")
+                        | Create Resource
+                .col-md-3(ng-show="currentSelection.type === 'resource' && currentSelection.id !== resource._id")
+                    button.btn.btn-default.pull-right(ng-click="deleteResource()")
+                        | Delete Resource
+            .clearfix
+            hr
+            div(ng-show="view === 'default'")
+                div(ng-show="selectedResource.methods.length")
+                    div.well(ng-repeat='method in selectedResource.methods track by $index')
+                        a(href='', ng-click='selectMethod(selectedResource._id, method)')
+                            i.fa.fa-lg.fa-cube
+                                | &nbsp {{method}}
+
+                div(ng-show="!selectedResource.methods.length")
+                    h3 No methods to display.
+            div(ng-show="view === 'resource'")
+                form(name='resourceFrm' ng-submit='saveResource()' novalidate='true')
+                    .form-horizontal
+                        .form-group(data-ng-class="{'has-error': resourceFrm.name.$dirty && resourceFrm.name.$invalid }")
+                            label.col-md-2.control-label
+                                | Resource Name
+                            .col-md-10
+                                input.form-control(type='text', name='name', data-ng-model='resourceModel.name', placeholder='Resource Name...', autocomplete='off')
+                        .form-group(data-ng-class="{'has-error': resourceFrm.path.$dirty && resourceFrm.path.$invalid }")
+                            label.col-md-2.control-label
+                                | Resource Path &nbsp
+                            .col-md-10
+                                .input-group
+                                    span.input-group-addon
+                                        |{{selectedResource.absolutePath}}
+                                    input.form-control(type='text', name='path', data-ng-model='resourceModel.path', placeholder='Resource Path...', required='required', autocomplete='off')
+                                    div(data-ng-show='resourceFrm.path.$dirty && resourceFrm.path.$invalid')
+                                        span.help-block(data-ng-show='!resourceFrm.path.hasFocus && resourceFrm.path.$error.required') Required
+                        .form-group
+                            label.col-md-2.control-label
+                                | Description
+                            .col-md-10
+                                input.form-control(type='text', name='desc', data-ng-model='resourceModel.description', placeholder='Resource Description...', autocomplete='off')
+                        div.pull-right
+                            input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
+                            input.btn.btn-success(type='submit', value='Create Resource' ng-disabled='resourceFrm.$invalid')
+            div(ng-if="view === 'method' || view === 'edit'", ng-show="view === 'edit' || view === 'method'")
+                form(name='methodFrm' ng-submit="view === 'edit' ? updateMethod() : saveMethod()" novalidate='true')
+                    .form-horizontal
+                        .form-group(data-ng-class="{'has-error': methodFrm.name.$dirty && methodFrm.name.$invalid }")
+                            label.col-md-2.control-label
+                                | Method Name
+                            .col-md-10
+                                input.form-control(type='text', name='name', data-ng-model='methodModel.name', placeholder='Method Name...', autocomplete='off')
+                        .form-group(data-ng-class="{'has-error': methodFrm.name.$dirty && methodFrm.name.$invalid }")
+                            label.col-md-2.control-label
+                                | Method Type
+                            .col-md-10
+                                select.form-control(name='name', data-ng-model='methodModel.type', required)
+                                    option GET
+                                    option POST
+                                    option DELETE
+                        .form-group
+                            label.col-md-2.control-label
+                                | Description
+                            .col-md-10
+                                input.form-control(type='text', name='desc', data-ng-model='methodModel.description', placeholder='Method Description...', autocomplete='off')
+                        .form-group
+                            label.col-md-2.control-label
+                                | Method Url
+                            .col-md-10
+                                input.form-control(type='text', name='url', data-ng-model='methodModel.url', placeholder='Method Url...', autocomplete='off', disabled)
+                        div(ui-ace="aceOptions" ng-model="methodModel.code")
+                        div.pull-right
+                            input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
+                            input.btn.btn-success(type='submit', ng-value="view === 'edit' ? 'Update' : 'Save'" ng-disabled='methodFrm.$invalid')

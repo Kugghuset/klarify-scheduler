@@ -23,6 +23,9 @@ app.use(require('express-session')({
 // Passport setup
 require('./auth/passport-setup')(app);
 
+//create root resource
+require('./models/resource').createRoot();
+
 var server = app.listen(Config.web.port, function () {
     console.log('App listening on port %s', Config.web.port);
     process.send('online');

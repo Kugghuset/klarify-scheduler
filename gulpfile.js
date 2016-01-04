@@ -67,7 +67,11 @@ gulp.task('jade', function() {
 
 // compile views page.
 gulp.task('views', function() {
-    src.views = 'app/client/views/**/*.jade';
+    src.views = [
+        'app/client/views/**/*.jade',
+        'app/client/directives/**/*.jade',
+        'app/client/layout/**/*.jade'
+    ];
     return gulp
             .src(src.views)
             .pipe($.jade())
@@ -82,11 +86,10 @@ gulp.task('build', ['clean'], function (cb) {
 // Build and start watching for modifications
 gulp.task('build:watch', function (cb) {
     watch = true;
-    src.layout = 'app/client/layout/*.jade';
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
         gulp.watch(src.views, ['views']);
-        gulp.watch([src.layout, src.index], ['jade']);
+        gulp.watch(src.index, ['jade']);
         cb();
     });
 });
@@ -182,16 +185,4 @@ gulp.task('sync', ['serve'], function (cb) {
     ), function (file) {
         browserSync.reload(path.relative(__dirname, file.path));
     });
-});
-
-// Run PageSpeed Insights
-gulp.task('pagespeed', function (cb) {
-    var pagespeed = require('psi');
-    // Update the below URL to the public URL of your site
-    pagespeed.output('example.com', {
-        strategy: 'mobile'
-        // By default we use the PageSpeed Insights free (no API key) tier.
-        // Use a Google Developer API key if you have one: http://goo.gl/RkN0vE
-        // key: 'YOUR_API_KEY'
-    }, cb);
 });

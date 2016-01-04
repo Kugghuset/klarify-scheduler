@@ -10,10 +10,10 @@ nav.navbar.navbar-default(ng-controller='navbarCtrl')
                     a(href='#/login') Sign In
             ul.nav.navbar-nav.pull-right(ng-show='isLoggedIn')
                 li.dropdown
-                    a(href='', class='dropdown-toggle', data-toggle='dropdown', data-hover='User Name')
+                    a.dropdown-toggle(href='', data-toggle='dropdown')
                         | {{user.email}}
                         i.fa.fa-angle-down.ml10
-                    ul.dropdown-menu(data-ng-click='collaspe()')
+                    ul.dropdown-menu
                         li
-                            a(href='javascript:void(0);', data-ng-click='logout()') Sign Out
+                            a(href='', data-ng-click='logout()') Sign Out
 toaster-container

@@ -2,34 +2,34 @@
     .well.col-md-6
         form(name = 'regForm', ng-submit="register()" novalidate = 'novalidate')
             .row
-                .form-group.col-md-6(data-ng-class = "{'has-error': regForm.email.$dirty && regForm.email.$invalid }")
-                    label.txt-light-green
+                .form-group.col-md-6(data-ng-class = "{'has-error': regForm.fName.$dirty && regForm.fName.$invalid }")
+                    label
                         | First Name*
                     input.form-control(type = 'text', name = 'fName', data-ng-model = 'user.firstName', placeholder = 'Enter First Name...', required = 'required', autocomplete = 'off')
                     div(data-ng-show = 'regForm.fName.$dirty && regForm.fName.$invalid')
                         span.help-block(data-ng-show = '!regForm.fName.hasFocus && regForm.fName.$error.required') Required
-                .form-group.col-md-6(data-ng-class = "{'has-error': regForm.fName.$dirty && regForm.fName.$invalid }")
-                    label.txt-light-green
+                .form-group.col-md-6(data-ng-class = "{'has-error': regForm.lName.$dirty && regForm.lName.$invalid }")
+                    label
                         | Last Name*
                     input.form-control(type = 'text', name = 'lName', data-ng-model = 'user.lastName', placeholder = 'Enter Last Name...', required = 'required', autocomplete = 'off')
                     div(data-ng-show = 'regForm.lName.$dirty && regForm.lName.$invalid')
                         span.help-block(data-ng-show = '!regForm.lName.hasFocus && regForm.lName.$error.required') Required
-            .form-group(data-ng-class = "{'has-error': regForm.lName.$dirty && regForm.lName.$invalid }")
-                label.txt-light-green
+            .form-group(data-ng-class = "{'has-error': regForm.email.$dirty && regForm.email.$invalid }")
+                label
                     | Email Address*
                 input.form-control(type = 'email', name = 'email', ng-pattern = 'emailPattern', data-ng-model = 'user.email', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
                 div(data-ng-show = 'regForm.email.$dirty && regForm.email.$invalid || regForm.email.$error.pattern')
                     span.help-block(data-ng-show = '!regForm.email.hasFocus && regForm.email.$error.required') Required
                     span.help-block(ng-show = '!regForm.email.hasFocus && regForm.email.$error.pattern') Please enter a valid email address.
             .form-group(data-ng-class = "{'has-error': regForm.password.$dirty && regForm.password.$invalid}")
-                label.txt-light-green
+                label
                     | Password*
                 input.form-control(type = 'password', name = 'password', data-ng-model = 'user.password', placeholder = 'Enter Password...', required = 'required', data-ng-minlength = '6', autocomplete = 'off')
                 div(data-ng-show = 'regForm.password.$dirty && regForm.password.$invalid')
                     span.help-block(data-ng-show = '!regForm.password.hasFocus && regForm.password.$error.required') Required
                     span.help-block(data-ng-show = '!regForm.password.hasFocus && regForm.password.$error.minlength') Your password must be at least 6 characters.
             .form-group(data-ng-class = "{'has-error': regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid}")
-                label.txt-light-green
+                label
                     | Confirm Password*
                 input.form-control(type = 'password', name='passwordConfirm', data-ng-model='user.confirmPassword', placeholder='Confirm Password', required='required', data-ng-minlength='6', equal-to='password', autocomplete='off')
                 div(data-ng-show = 'regForm.passwordConfirm.$dirty && regForm.passwordConfirm.$invalid')

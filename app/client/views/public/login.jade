@@ -2,13 +2,13 @@
     .well.col-md-6
         form(name = 'loginForm', ng-submit='login()' novalidate = 'novalidate')
             .form-group(data-ng-class = "{'has-error': loginForm.email.$dirty && loginForm.email.$invalid }")
-                label.txt-light-green
+                label
                     | Email Address
                 input.form-control(type = 'email', name = 'email', data-ng-model = 'user.email', placeholder = 'Enter Email Address...', required = 'required', autocomplete = 'off')
                 div(data-ng-show = 'loginForm.email.$dirty && loginForm.email.$invalid')
                     span.help-block(data-ng-show = '!loginForm.email.hasFocus && loginForm.email.$error.required') Required
             .form-group(data-ng-class = "{'has-error': loginForm.password.$dirty && loginForm.password.$invalid}")
-                label.txt-light-green
+                label
                     | Password
                 input.form-control(type = 'password', name = 'password', data-ng-model = 'user.password', placeholder = 'Enter Password...', required = 'required', autocomplete = 'off')
                 div(data-ng-show = 'loginForm.password.$dirty && loginForm.password.$invalid')

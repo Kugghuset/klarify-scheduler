@@ -56,25 +56,30 @@ module.exports = {
         ]
     },
     resolve: {
-    alias: {
-      lodash: path.resolve( __dirname, './bower_components/lodash/lodash.js')
-    }
+        alias: {
+          lodash: path.resolve( __dirname, './bower_components/lodash/lodash.js')
+        }
     },
-    plugins: [
-        new webpack.ProvidePlugin({
-            _: "lodash"
-        }),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-          '__DEV__': DEBUG
-        }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            compress: {
-                warnings: true
-            }
-        }),
-        new webpack.optimize.AggressiveMergingPlugin()
-    ]
+    plugins: {
+        $push: [
+            new webpack.ProvidePlugin({
+                _: "lodash"
+            }),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+                '__DEV__': DEBUG
+            }),
+            new webpack.optimize.DedupePlugin()
+        ].concat(
+            DEBUG ? [] : [
+                new webpack.optimize.UglifyJsPlugin({
+                    minimize: true,
+                    compress: {
+                        warnings: true
+                    }
+                }),
+                new webpack.optimize.AggressiveMergingPlugin()
+            ]
+        )
+    }
 };
