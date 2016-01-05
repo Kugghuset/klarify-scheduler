@@ -10,54 +10,57 @@ var Async = require('async');
 
 router.get('/', require('../auth/auth-middleware'), function (req, res) {
 
-    Resources.find({}, function (err, data) {
-        if(err) {
-            return res.status(400).send(err);
-        }
+    Resources
+        .find({}, function (err, data) {
+            if(err) {
+                return res.status(400).send(err);
+            }
 
-        return res.json(data);
-    })
+            return res.json(data);
+        });
 });
 
 router.post('/', require('../auth/auth-middleware'), validate(require('./validations/resources').resources.body), function (req, res) {
     var payload = req.body;
 
-    Resources.find({absolutePath: payload.absolutePath}, function (err, exists) {
-        if(err) {
-            return res.status(400).send(err);
-        }
+    Resources
+        .find({absolutePath: payload.absolutePath}, function (err, exists) {
+            if(err) {
+                return res.status(400).send(err);
+            }
 
-        if(exists && exists.length) {
-            return res.status(400).send('Resource path already exists');
-        }
+            if(exists && exists.length) {
+                return res.status(400).send('Resource path already exists');
+            }
 
-        Resources
-            .create(payload, function (err, data) {
-                if(err) {
-                    return res.status(400).send(err);
-                }
+            Resources
+                .create(payload, function (err, data) {
+                    if(err) {
+                        return res.status(400).send(err);
+                    }
 
-                res.json(data);
-            })
-    })
+                    res.json(data);
+                });
+        });
 });
 
 router.delete('/', require('../auth/auth-middleware'), function (req, res) {
     var payload = req.query;
 
-    Resources.remove({absolutePath: {$regex: payload.path}}, function (err) {
-        if(err) {
-            return res.status(400).send(err);
-        }
+    Resources
+        .remove({absolutePath: {$regex: payload.path}}, function (err) {
+            if(err) {
+                return res.status(400).send(err);
+            }
 
-        Methods
-            .remove({url: {$regex: payload.path}}, function (err) {
-                if (err) {
-                    return res.status(400).send(err);
-                }
-                res.json({success: true});
-            });
-    });
+            Methods
+                .remove({url: {$regex: payload.path}}, function (err) {
+                    if (err) {
+                        return res.status(400).send(err);
+                    }
+                    res.json({success: true});
+                });
+        });
 });
 
 router.get('/count', require('../auth/auth-middleware'), function (req, res) {
@@ -122,7 +125,7 @@ router.post('/methods', require('../auth/auth-middleware'), validate(require('./
                             res.json(data);
                         });
                 });
-        })
+        });
 });
 
 router.put('/methods', require('../auth/auth-middleware'), function (req, res) {
@@ -136,7 +139,7 @@ router.put('/methods', require('../auth/auth-middleware'), function (req, res) {
 
             res.json({success: true});
 
-        })
+        });
 });
 
 router.delete('/methods', require('../auth/auth-middleware'), function (req, res) {
@@ -155,7 +158,7 @@ router.delete('/methods', require('../auth/auth-middleware'), function (req, res
                     }
                     res.json({success: true});
                 });
-        })
+        });
 });
 
 module.exports = router;

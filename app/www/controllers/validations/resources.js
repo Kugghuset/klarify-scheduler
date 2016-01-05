@@ -16,7 +16,6 @@ exports.resources = {
 
 exports.methods = {
     body: {
-        name            : Joi.string().required(),
         type            : Joi.string().allow(['GET', 'POST', 'DELETE']).required(),
         absoluteUrl     : Joi.string().required(),
         code            : Joi.string().required(),

@@ -59,11 +59,6 @@
                     .form-horizontal
                         .form-group(data-ng-class="{'has-error': methodFrm.name.$dirty && methodFrm.name.$invalid }")
                             label.col-md-2.control-label
-                                | Method Name
-                            .col-md-10
-                                input.form-control(type='text', name='name', data-ng-model='methodModel.name', placeholder='Method Name...', autocomplete='off')
-                        .form-group(data-ng-class="{'has-error': methodFrm.name.$dirty && methodFrm.name.$invalid }")
-                            label.col-md-2.control-label
                                 | Method Type
                             .col-md-10
                                 select.form-control(name='name', data-ng-model='methodModel.type', required)

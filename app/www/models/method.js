@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var MethodSchema = new Schema ({
-    name            : { type: String, required: false },
     type            : { type: String, required: true },
     url             : { type: String, required: true },
     code            : { type: String, required: true },
