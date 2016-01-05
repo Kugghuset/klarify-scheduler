@@ -4,6 +4,7 @@
   "description": "```",
   "main": "server/app.js",
   "dependencies": {
+    "async": "^1.5.1",
     "babel": "^6.3.13",
     "babel-core": "^6.3.17",
     "bcryptjs": "^2.3.0",

@@ -13,6 +13,8 @@ angular
                 $scope.resource = {};
                 $scope.view = 'default';
                 $scope.iscollapsed = true;
+                $scope.resourceModel ={};
+                $scope.methodModel ={};
                 /********************************************************************************************/
                 /******************************************Initializing**************************************/
                 /********************************************************************************************/
@@ -63,17 +65,13 @@ angular
                 /********************************************************************************************/
 
                 $scope.$watch("resourceModel.name", function (value) {
-                    if(value) {
-                        $scope.resourceModel.path = value;
-                    }
+                    $scope.resourceModel.path = value;
                 });
 
                 $scope.$watch("resourceModel.path", function (value) {
-                    if(value) {
-                        $scope.resourceModel.path = value
-                                                        .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')
-                                                        .replace(/\-{2,}/g, '-');
-                    }
+                    $scope.resourceModel.path = value && value
+                                                            .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')
+                                                            .replace(/\-{2,}/g, '-');
                 });
 
                 $scope.selectResource = function (resource) {
@@ -166,7 +164,6 @@ angular
                 /********************************************************************************************/
                 /********************************************Method******************************************/
                 /********************************************************************************************/
-                $scope.methodModel ={};
 
                 $scope.aceOptions = {
                     mode: "javascript",

@@ -2,7 +2,7 @@ nav.navbar.navbar-default(ng-controller='navbarCtrl')
     .container-fluid
         .navbar-header
         .container
-            a.navbar-brand(href='#') Klarify Scheduler
+            a.navbar-brand(href='', ng-click="logoClick()") Klarify Scheduler
             ul.nav.navbar-nav.pull-right(ng-hide='isLoggedIn')
                 li
                     a(href='#/register') Sign Up
@@ -14,6 +14,8 @@ nav.navbar.navbar-default(ng-controller='navbarCtrl')
                         | {{user.email}}
                         i.fa.fa-angle-down.ml10
                     ul.dropdown-menu
+                        li
+                            a(href='#/user/dashboard') Dashboard
                         li
                             a(href='', data-ng-click='logout()') Sign Out
 toaster-container

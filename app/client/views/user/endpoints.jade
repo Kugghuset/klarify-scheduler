@@ -2,7 +2,7 @@
     .row
         .col-md-3
             include partials/_left-nav
-        .col-md-9
+        .col-md-9(style=" border-left:1px solid #e7e7e7;")
             .col-md-4
                 h3 {{heading}}
             .col-md-8(ng-show="view === 'default' || view === 'edit'")
@@ -23,13 +23,12 @@
             div(ng-show="view === 'default'")
                 div(ng-show="selectedResource.methods.length")
                     div.well(ng-repeat='method in selectedResource.methods track by $index')
-                        a(href='', ng-click='selectMethod(selectedResource._id, method)')
+                        a(href='', ng-click='selectMethod(selectedResource._id, method)', data-ng-class="{'text-success': method === 'GET', 'text-info': method === 'PUT', 'text-warning': method === 'POST', 'text-danger': method === 'DELETE'}")
                             i.fa.fa-lg.fa-cube
                                 | &nbsp {{method}}
-
                 div(ng-show="!selectedResource.methods.length")
                     h3 No methods to display.
-            div(ng-show="view === 'resource'")
+            div(ng-if="view === 'resource'", ng-show="view === 'resource'")
                 form(name='resourceFrm' ng-submit='saveResource()' novalidate='true')
                     .form-horizontal
                         .form-group(data-ng-class="{'has-error': resourceFrm.name.$dirty && resourceFrm.name.$invalid }")
@@ -45,8 +44,8 @@
                                     span.input-group-addon
                                         |{{selectedResource.absolutePath}}
                                     input.form-control(type='text', name='path', data-ng-model='resourceModel.path', placeholder='Resource Path...', required='required', autocomplete='off')
-                                    div(data-ng-show='resourceFrm.path.$dirty && resourceFrm.path.$invalid')
-                                        span.help-block(data-ng-show='!resourceFrm.path.hasFocus && resourceFrm.path.$error.required') Required
+                                div(data-ng-show='resourceFrm.path.$dirty && resourceFrm.path.$invalid')
+                                    span.help-block(data-ng-show='!resourceFrm.path.hasFocus && resourceFrm.path.$error.required') Required
                         .form-group
                             label.col-md-2.control-label
                                 | Description
@@ -70,6 +69,7 @@
                                 select.form-control(name='name', data-ng-model='methodModel.type', required)
                                     option GET
                                     option POST
+                                    option PUT
                                     option DELETE
                         .form-group
                             label.col-md-2.control-label

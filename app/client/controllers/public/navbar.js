@@ -13,12 +13,20 @@ angular
             function($scope, $rootScope, Auth, $location, toaster) {
                 $rootScope.$on('AuthLoggedIn', function () {
                     $scope.user = Auth.getCurrentUser();
-                    //$location.path('/user/dashboard');
+
                 });
 
                 $rootScope.$on('$stateChangeSuccess', function () {
                     $scope.isLoggedIn = Auth.isLoggedIn();
                 });
+
+                $scope.logoClick = function () {
+                    if(Auth.isLoggedIn()) {
+                        return $location.path('/user/dashboard');
+                    }
+
+                    $location.path('#');
+                };
 
                 $scope.logout = function () {
                     Auth.logout();

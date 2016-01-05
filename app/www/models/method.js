@@ -14,15 +14,16 @@ var MethodSchema = new Schema ({
     disabled        : { type: Boolean, default: false }
 });
 
-MethodSchema.statics.clean = function(requestData, cb) {
-    var method = requestData.toObject();
-    delete method.__v;
-    delete method.modifiedAt;
-    delete method.createdAt;
+MethodSchema
+    .statics
+    .clean = function(requestData, cb) {
+        var method = requestData.toObject();
+        delete method.__v;
+        delete method.modifiedAt;
+        delete method.createdAt;
 
-    cb(method);
-
-};
+        cb(method);
+    };
 
 MethodSchema
     .indexes(

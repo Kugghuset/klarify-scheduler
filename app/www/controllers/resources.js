@@ -5,6 +5,8 @@ var router = express.Router();
 var validate = require('express-validation');
 var Resources = require('../models/resource');
 var Methods = require('../models/method');
+var Async = require('async');
+
 
 router.get('/', require('../auth/auth-middleware'), function (req, res) {
 
@@ -56,6 +58,26 @@ router.delete('/', require('../auth/auth-middleware'), function (req, res) {
                 res.json({success: true});
             });
     });
+});
+
+router.get('/count', require('../auth/auth-middleware'), function (req, res) {
+
+    Async
+        .parallel({
+            resources: function (cb) {
+                Resources.count({}, cb);
+            },
+            methods: function (cb) {
+                Methods.count({}, cb);
+            }
+        }, function (err, results) {
+            if(err) {
+                console.log('error: ' + err);
+                return res.status(500).send(err);
+            }
+
+            res.send(results);
+        });
 });
 
 router.get('/methods', require('../auth/auth-middleware'), validate(require('./validations/resources').methods.query), function (req, res) {

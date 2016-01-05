@@ -5,6 +5,6 @@ ul.list-unstyled
         a(href='', ng-click='selectResource(resource)', data-ng-class="{'myClass': resource._id === currentSelection.id && currentSelection.type === 'resource' }")
             i.fa.fa-cubes
                 | &nbsp {{resource.path}}
-        ul(uib-collapse="isCollapsed")
+        ul.listNone(uib-collapse="isCollapsed")
             li(ng-repeat='method in resource.methods track by $index' ng-include="'./views/user/partials/method.html'")
             li(ng-repeat='resource in resource.resources track by $index' ng-include="'./views/user/partials/resource.html'")
