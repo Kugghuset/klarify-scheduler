@@ -57,13 +57,15 @@ module.exports = {
     },
     resolve: {
         alias: {
-          lodash: path.resolve( __dirname, './bower_components/lodash/lodash.js')
+          lodash: path.resolve( __dirname, './bower_components/lodash/lodash.js'),
+          later: path.resolve( __dirname, './bower_components/later')
         }
     },
     plugins: {
         $push: [
             new webpack.ProvidePlugin({
-                _: "lodash"
+                _: "lodash",
+                later: "later"
             }),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',

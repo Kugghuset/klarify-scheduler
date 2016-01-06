@@ -1,82 +1,142 @@
 .container
-    .row
-        .col-md-3
-            include partials/_left-nav
-        .col-md-9(style=" border-left:1px solid #e7e7e7;")
-            .col-md-4
-                h3 {{heading}}
-            .col-md-8(ng-show="view === 'default' || view === 'edit'")
-                .col-md-3(ng-show="currentSelection.type === 'resource'")
-                    button.btn.btn-default.pull-right(ng-click="createItem('method')")
-                        | Create Method
-                .col-md-3(ng-show="currentSelection.type !== 'resource'")
-                    button.btn.btn-default.pull-right(ng-click="deleteMethod()")
-                        | Delete Method
-                .col-md-3(ng-show="currentSelection.type === 'resource'")
-                    button.btn.btn-default.pull-right(ng-click="createItem('resource')")
-                        | Create Resource
-                .col-md-3(ng-show="currentSelection.type === 'resource' && currentSelection.id !== resource._id")
-                    button.btn.btn-default.pull-right(ng-click="deleteResource()")
-                        | Delete Resource
-            .clearfix
-            hr
-            div(ng-show="view === 'default'")
-                div(ng-show="selectedResource.methods.length")
-                    div.well(ng-repeat='method in selectedResource.methods track by $index')
-                        a(href='', ng-click='selectMethod(selectedResource._id, method)', data-ng-class="{'text-success': method === 'GET', 'text-info': method === 'PUT', 'text-warning': method === 'POST', 'text-danger': method === 'DELETE'}")
-                            i.fa.fa-lg.fa-cube
-                                | &nbsp {{method}}
-                div(ng-show="!selectedResource.methods.length")
-                    h3 No methods to display.
-            div(ng-if="view === 'resource'", ng-show="view === 'resource'")
-                form(name='resourceFrm' ng-submit='saveResource()' novalidate='true')
-                    .form-horizontal
-                        .form-group(data-ng-class="{'has-error': resourceFrm.name.$dirty && resourceFrm.name.$invalid }")
-                            label.col-md-2.control-label
-                                | Resource Name
-                            .col-md-10
-                                input.form-control(type='text', name='name', data-ng-model='resourceModel.name', placeholder='Resource Name...', autocomplete='off')
-                        .form-group(data-ng-class="{'has-error': resourceFrm.path.$dirty && resourceFrm.path.$invalid }")
-                            label.col-md-2.control-label
-                                | Resource Path &nbsp
-                            .col-md-10
-                                .input-group
-                                    span.input-group-addon
-                                        |{{selectedResource.absolutePath}}
-                                    input.form-control(type='text', name='path', data-ng-model='resourceModel.path', placeholder='Resource Path...', required='required', autocomplete='off')
-                                div(data-ng-show='resourceFrm.path.$dirty && resourceFrm.path.$invalid')
-                                    span.help-block(data-ng-show='!resourceFrm.path.hasFocus && resourceFrm.path.$error.required') Required
-                        .form-group
-                            label.col-md-2.control-label
-                                | Description
-                            .col-md-10
-                                input.form-control(type='text', name='desc', data-ng-model='resourceModel.description', placeholder='Resource Description...', autocomplete='off')
-                        div.pull-right
-                            input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
-                            input.btn.btn-success(type='submit', value='Create Resource' ng-disabled='resourceFrm.$invalid')
-            div(ng-if="view === 'method' || view === 'edit'", ng-show="view === 'edit' || view === 'method'")
-                form(name='methodFrm' ng-submit="view === 'edit' ? updateMethod() : saveMethod()" novalidate='true')
-                    .form-horizontal
-                        .form-group(data-ng-class="{'has-error': methodFrm.name.$dirty && methodFrm.name.$invalid }")
-                            label.col-md-2.control-label
-                                | Method Type
-                            .col-md-10
-                                select.form-control(name='name', data-ng-model='methodModel.type', required)
-                                    option GET
-                                    option POST
-                                    option PUT
-                                    option DELETE
-                        .form-group
-                            label.col-md-2.control-label
-                                | Description
-                            .col-md-10
-                                input.form-control(type='text', name='desc', data-ng-model='methodModel.description', placeholder='Method Description...', autocomplete='off')
-                        .form-group
-                            label.col-md-2.control-label
-                                | Method Url
-                            .col-md-10
-                                input.form-control(type='text', name='url', data-ng-model='methodModel.url', placeholder='Method Url...', autocomplete='off', disabled)
-                        div(ui-ace="aceOptions" ng-model="methodModel.code")
-                        div.pull-right
-                            input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
-                            input.btn.btn-success(type='submit', ng-value="view === 'edit' ? 'Update' : 'Save'" ng-disabled='methodFrm.$invalid')
+    div(data-ng-show="view==='defaultView'")
+        .row
+            button.btn.btn-default.pull-right(ng-click="createEndpoint()")
+                | Create Endpoint
+        hr
+        .row
+            uib-accordion(close-others='true')
+                uib-accordion-group.col-md-5.col-md-offset-1(ng-repeat='endpoint in endpoints track by endpoint._id', heading="{{endpoint.name}}")
+                    div.pull-right
+                        button.btn.btn-info(ng-click='editEndpoint(endpoint)')
+                            i.fa.fa-pencil-square-o
+                        button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
+                            i.fa.fa-trash
+                    table.table-responsive
+                        tr
+                            td
+                                label Name
+                            td
+                                |{{endpoint.name}}
+                        tr
+                            td
+                                label Base URL
+                            td
+                                | {{endpoint.baseUrl}}
+                        tr
+                            td
+                                label Sub Directory
+                            td
+                                | {{endpoint.subDirectory}}
+                        tr
+                            td
+                                label Description
+                            td
+                                | {{endpoint.description}}
+                        tr
+                            td
+                                label Disabled
+                            td
+                                | {{endpoint.isDisabled}}
+                        tr
+                            td
+                                label Routes
+                        tr
+                            table.table-bordered
+                                thead
+                                    tr
+                                        th
+                                            label Name
+
+                                        th
+                                            label Sub Directory
+
+                                        th
+                                            label Interval
+                                        th
+                                            label Schedule
+                                tbody(ng-repeat='route in endpoint.routes track by $index')
+                                    tr
+                                        td {{route.name}}
+                                        td {{route.subDirectory}}
+                                        td {{route.interval}}
+                                        td {{route.schedule}}
+
+
+
+
+    div(data-ng-show="view==='formView'")
+        form(name='endpointFrm', novalidate='true')
+            .form-horizontal
+                .form-group(data-ng-class="{'has-error': endpointFrm.name.$dirty && endpointFrm.name.$invalid }")
+                    label.col-md-2.control-label
+                        | Endpoint Name
+                    .col-md-10
+                        input.form-control(type='text', name='name', data-ng-model='endpoint.name', required='required', placeholder='Endpoint Name...', autocomplete='off')
+                        div(data-ng-show='endpointFrm.name.$dirty && endpointFrm.name.$invalid')
+                            span.help-block(data-ng-show='!endpointFrm.name.hasFocus && endpointFrm.name.$error.required') Required
+                .form-group(data-ng-class="{'has-error': endpointFrm.baseUrl.$dirty && endpointFrm.baseUrl.$invalid }")
+                    label.col-md-2.control-label
+                        | Base URL
+                    .col-md-10
+                        input.form-control(type='url', name='baseUrl', data-ng-model='endpoint.baseUrl', placeholder='Base URL...', required='required', autocomplete='off')
+                        div(data-ng-show='endpointFrm.baseUrl.$dirty && endpointFrm.baseUrl.$invalid')
+                            span.help-block(data-ng-show='!endpointFrm.baseUrl.hasFocus && endpointFrm.baseUrl.$error.required') Required
+                            span.help-block(data-ng-show='!endpointFrm.baseUrl.hasFocus && endpointFrm.baseUrl.$error.url') is not a valid url
+                .form-group
+                    label.col-md-2.control-label
+                        | Subdirectory
+                    .col-md-10
+                        input.form-control(type='text', name='subdir', data-ng-model='endpoint.subdirectory', placeholder='Subdirectory...', autocomplete='off')
+                .form-group
+                    label.col-md-2.control-label
+                        | Description
+                    .col-md-10
+                        input.form-control(type='text', name='desc', data-ng-model='endpoint.description', placeholder='Endpoint Description...', autocomplete='off')
+                .form-group
+                    label.col-md-2.control-label
+                        | Disabled
+                    .col-md-10
+                        switch.form-control(name='disabled', data-ng-model='endpoint.isDisabled')
+                .form-group
+                    label.col-md-2.control-label
+                        | Routes
+                    .col-md-10
+                        button.btn.btn-info.pull-right(ng-click='addRoute()', title="Add new route")
+                            i.fa.fa-plus
+                        .clearfix
+                        br
+                        div(ng-repeat='route in endpoint.routes track by $index')
+                            ng-form(name='routeFrm')
+                                .form-horizontal
+                                    .form-group
+                                        label.col-sm-2.control-label
+                                            | Name
+                                        .col-sm-10
+                                            input.form-control(type='text', name='name', data-ng-model='route.name', placeholder='Route Name...', autocomplete='off')
+                                    .form-group(data-ng-class="{'has-error': routeFrm.subdir.$dirty && routeFrm.subdir.$invalid }")
+                                        label.col-sm-2.control-label
+                                            | Subdirectory
+                                        .col-sm-10
+                                            input.form-control(type='text', name='subdir', data-ng-model='route.subDirectory', placeholder='Route Subdirectory...', required='required', autocomplete='off')
+                                    .form-group(data-ng-class="{'has-error': routeFrm.interval.$dirty && routeFrm.interval.$invalid }")
+                                        label.col-sm-2.control-label
+                                            | Interval
+                                        .col-sm-10
+                                            input.form-control(type='text', name='interval', data-ng-model='route.interval', placeholder='Route Interval...', required='required', autocomplete='off')
+                                            div(data-ng-show='routeFrm.interval.$dirty && routeFrm.interval.$invalid')
+                                                span.help-block(data-ng-show='!routeFrm.interval.hasFocus && routeFrm.interval.$error.required') Required
+                                    .form-group(data-ng-class="{'has-error': routeFrm.schedule.$dirty && routeFrm.schedule.$invalid }")
+                                        label.col-sm-2.control-label
+                                            | Schedule
+                                        .col-sm-10
+                                            input.form-control(type='text', name='schedule', data-ng-model='route.schedule', later-parse, placeholder='Route Interval...', autocomplete='off')
+                                            div(data-ng-show='routeFrm.schedule.$dirty && routeFrm.schedule.$invalid')
+                                                span.help-block(data-ng-show='!routeFrm.schedule.hasFocus && routeFrm.schedule.$error.laterParse') is not a valid string
+                                    button.btn.btn-danger.pull-right(ng-click='deleteRoute($index)', ng-disabled="endpoint.routes.length === 1")
+                                        | Delete Route
+                                    .clearfix
+                            hr
+                div.pull-right
+                    input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
+                    input.btn.btn-success(type='submit', value='Save', ng-click='save()', ng-disabled='endpointFrm.$invalid')

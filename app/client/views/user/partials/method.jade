@@ -1,6 +1,0 @@
-div
-    a(href='',
-        data-ng-class="{'text-success': method === 'GET', 'text-info': method === 'PUT', 'text-warning': method === 'POST', 'text-danger': method === 'DELETE', 'myClass': method === currentSelection.type && resource._id === currentSelection.id }",
-        data-ng-click="selectMethod(resource._id, method)")
-        i.fa.fa-cube
-            | &nbsp {{method}}

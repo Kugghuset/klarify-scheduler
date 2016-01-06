@@ -1,29 +1,56 @@
 'use strict';
-var Methods = require('../models/method');
-var vm = require('vm');
 
-module.exports = function (req, res) {
-    var path = req.path;
-    var method = req.method;
+var express = require('express');
+var router = express.Router();
+var validate = require('express-validation');
+var _ = require('lodash');
+var EndpointRepo = require('../models/endpoint');
 
-    Methods
-        .findOne({url: path, type: method}, function (err, resource) {
+
+router.get('/', require('../auth/auth-middleware'), validate(require('./validations/endpoints').get), function (req, res) {
+    var payload = req.query;
+
+    EndpointRepo
+        .find({}, {}, {skip: payload.skip, limit: payload.limit}, function (err, data) {
+            if(err) {
+                return res.status(400).send(err);
+            }
+            res.send(data);
+        });
+
+});
+
+
+router.post('/', require('../auth/auth-middleware'), validate(require('./validations/endpoints').post), function (req, res) {
+    var payload = req.body;
+
+    var uniqueRoutes = _.uniq(payload.routes, function (route) {
+        return route.subDirectory;
+    });
+
+    if(uniqueRoutes.length !== payload.routes.length) {
+        return res.status(400).send('Duplicate routes are not allowed');
+    }
+
+    EndpointRepo
+        .findOne({name: payload.name}, function (err, exists) {
             if (err) {
                 return res.status(500).send(err);
             }
 
-            if(!resource) {
-                return res.status(404).json({message: "Method not found"});
+            if(exists) {
+                return res.status(400).send("Endpoint with name " + '"' + payload.name + '"' + " already exists.");
             }
 
-            var sandbox = { fn: undefined };
-            vm.createContext(sandbox);
-            vm.runInContext('fn = ' + resource.code, sandbox);
+            EndpointRepo
+                .create(payload, function (err, data) {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    res.json(data);
+                })
+        })
 
-            if (sandbox.fn && typeof sandbox.fn === 'function') {
-                sandbox.fn(req, res);
-            } else {
-                res.status(501, "Endpoint is not a function");
-            }
-        });
-};
+});
+
+module.exports = router;
