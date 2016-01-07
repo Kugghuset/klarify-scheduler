@@ -12,21 +12,28 @@ angular
                 $scope.view = 'defaultView';
                 $scope.endpoints = [];
                 $scope.limit = 10;
+                $scope.showLoadMoreBtn = false;
 
-                $http
-                    .get('/api/endpoints', {params: {skip: $scope.endpoints.length, limit: $scope.limit}})
-                    .then(function(success) {
-                        $scope.endpoints = $scope.endpoints.concat(success.data);
-                    })
-                    .catch(function (error) {
-                        toaster
-                            .pop({
-                                type: 'error',
-                                title: 'Error',
-                                body: error.data,
-                                showCloseButton: true
-                            });
-                    });
+                $scope.loadEndpoints = function () {
+                    $http
+                        .get('/api/endpoints', {params: {skip: $scope.endpoints.length, limit: $scope.limit}})
+                        .then(function(success) {
+                            $scope.endpoints = $scope.endpoints.concat(success.data);
+                            $scope.showLoadMoreBtn = success.data.length === 10;
+                        })
+                        .catch(function (error) {
+                            toaster
+                                .pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    body: error.data,
+                                    showCloseButton: true
+                                });
+                        });
+
+                };
+
+                $scope.loadEndpoints();
 
                 $scope.$watch("endpoint.subdirectory", function (newVal, oldVal) {
                     if (newVal && newVal !== oldVal) {
@@ -71,6 +78,7 @@ angular
                                     body: 'Endpoint saved successfully',
                                     showCloseButton: true
                                 });
+                            $scope.editEndpoint(success.data);
                         })
                         .catch(function (err) {
                             toaster
@@ -85,7 +93,30 @@ angular
 
                 $scope.editEndpoint = function (endpoint) {
                     $scope.endpoint = endpoint;
-                    $scope.view = 'formView';
+                    $scope.view = 'editView';
+                };
+
+                $scope.update = function () {
+                    $http
+                        .put('/api/endpoints', $scope.endpoint)
+                        .then(function (success) {
+                            toaster
+                                .pop({
+                                    type: 'success',
+                                    title: 'Success',
+                                    body: 'Endpoint updated successfully',
+                                    showCloseButton: true
+                                });
+                        })
+                        .catch(function (err) {
+                            toaster
+                                .pop({
+                                    type: 'error',
+                                    title: 'Error',
+                                    body: err.data,
+                                    showCloseButton: true
+                                });
+                        });
                 };
 
                 $scope.deleteEndpoint = function (id) {
@@ -93,13 +124,20 @@ angular
                         $http
                             .delete('/api/endpoints', {params: {id: id}})
                             .then(function () {
+
+                                $scope.endpoints = _.chain($scope.endpoints)
+                                                        .filter(function (endpoint) {
+                                                            return endpoint._id !== id;
+                                                        })
+                                                        .value();
+                                $scope.cancel();
                                 toaster
                                     .pop({
                                         type: 'info',
                                         title: 'Info',
                                         body: 'Endpoint deleted successfully.',
                                         showCloseButton: true
-                                    })
+                                    });
                             })
                             .catch(function (err) {
                                 toaster
