@@ -58,7 +58,7 @@ module.exports = {
     resolve: {
         alias: {
           lodash: path.resolve( __dirname, './bower_components/lodash/lodash.js'),
-          later: path.resolve( __dirname, './bower_components/later')
+          later: path.resolve( __dirname, './node_modules/later')
         }
     },
     plugins: {

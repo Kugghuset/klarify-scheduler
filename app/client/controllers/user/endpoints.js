@@ -78,6 +78,7 @@ angular
                                     body: 'Endpoint saved successfully',
                                     showCloseButton: true
                                 });
+                            $scope.endpoints.push(success.data);
                             $scope.editEndpoint(success.data);
                         })
                         .catch(function (err) {
