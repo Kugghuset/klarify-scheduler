@@ -6,7 +6,6 @@ var validate = require('express-validation');
 var _ = require('lodash');
 var EndpointRepo = require('../models/endpoint');
 
-
 router.get('/', require('../auth/auth-middleware'), validate(require('./validations/endpoints').get), function (req, res) {
     var payload = req.query;
 
@@ -47,6 +46,7 @@ router.post('/', require('../auth/auth-middleware'), validate(require('./validat
                     if (err) {
                         return res.status(500).send(err);
                     }
+
                     res.json(data);
                 })
         })
@@ -65,10 +65,13 @@ router.put('/', require('../auth/auth-middleware'), validate(require('./validati
     }
 
     EndpointRepo
-        .update({_id: payload._id}, payload, function (err, data) {
+        .update({_id: payload._id}, payload, function (err) {
             if(err) {
                 return res.status(500).send(err);
             }
+
+            require('../crons')
+                .rescheduleCron(payload);
 
             res.json({success: true});
         })
@@ -83,7 +86,10 @@ router.delete('/', require('../auth/auth-middleware'), function (req, res) {
                 return res.status(500).send(err);
             }
 
-            res.json({success: true});
+            require('../crons')
+                .stopCron(payload.id, function () {
+                    res.json({success: true});
+                });
         })
 });
 

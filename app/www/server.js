@@ -31,6 +31,7 @@ app.use(function (err, req, res, next) {
 
 // Passport setup
 require('./auth/passport-setup')(app);
+require('./crons').runAllCrons();
 
 var server = app.listen(Config.web.port, function () {
     console.log('App listening on port %s', Config.web.port);
