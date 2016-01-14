@@ -23,4 +23,6 @@ module.exports = function (app, logger) {
     app.use('/api/accounts', require('./controllers/accounts'));
 
     app.use('/api/endpoints', require('./controllers/endpoints'));
+
+    app.use('/api/presets', require('./controllers/presets'));
 };

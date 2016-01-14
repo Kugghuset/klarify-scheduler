@@ -27,6 +27,5 @@ UserSchema.statics.clean = function(requestData, cb) {
 
 };
 
-
 /** export schema */
 module.exports = mongoose.model('user', UserSchema);

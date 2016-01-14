@@ -1,0 +1,62 @@
+.container
+    div(ng-if="view==='defaultView'", data-ng-show="view==='defaultView'")
+        .row
+            .col-md-10
+                h1 Presets
+            .col-md-2
+                button.btn.btn-info.pull-right(ng-click="createPreset()")
+                    | Create Preset
+        hr
+        .row
+            uib-accordion(close-others='true')
+                .col-md-6.presets(ng-repeat='preset in presets track by preset._id')
+                    uib-accordion-group
+                        uib-accordion-heading
+                            .text-capitalize {{preset.name}}
+                        div.pull-right
+                            button.btn.btn-info(ng-click='editPreset(preset)')
+                                i.fa.fa-pencil-square-o
+                            button.btn.btn-danger(ng-click='deletePreset(preset._id)')
+                                i.fa.fa-trash
+                        table.table.table-hover.table-responsive
+                            tr
+                                td
+                                    label Name
+                                td
+                                    | {{preset.name}}
+                            tr
+                                td
+                                    label Value
+                                td
+                                    | {{preset.value}}
+        .row
+            button.btn.btn-info.center-block(ng-show="showLoadMore", ng-click="loadPresets()")
+                | Load More...
+    div(data-ng-show="view==='formView' || view === 'editView'")
+        .row
+            button.btn.btn-danger.pull-right(ng-click="cancel()")
+                | Back
+        hr
+        .row
+            form(name="presetFrm", novalidate='true')
+                .form-horizontal
+                    .form-group(data-ng-class="{'has-error': presetFrm.name.$dirty && presetFrm.name.$invalid }")
+                        label.col-md-2.control-label
+                            | Preset Name
+                        .col-md-10
+                            input.form-control(type='text', name='name', data-ng-model='preset.name', required='required', placeholder='Enter Name...', autocomplete='off')
+                            div(data-ng-show='presetFrm.name.$dirty && presetFrm.name.$invalid')
+                                span.help-block(data-ng-show='!presetFrm.name.hasFocus && presetFrm.name.$error.required') Required
+                .form-horizontal
+                    .form-group(data-ng-class="{'has-error': presetFrm.value.$dirty && presetFrm.value.$invalid }")
+                        label.col-md-2.control-label
+                            | Preset Value
+                        .col-md-10
+                            input.form-control(type='text', name='value', later-parse, data-ng-model='preset.value', required='required', placeholder='Enter Value...', autocomplete='off')
+                            div(data-ng-show='presetFrm.value.$dirty && presetFrm.value.$invalid')
+                                span.help-block(data-ng-show='!presetFrm.value.hasFocus && presetFrm.value.$error.required') Required
+                                span.help-block(data-ng-show='!presetFrm.value.hasFocus && presetFrm.value.$error.laterParse') is not a valid string
+                div.pull-right
+                    input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
+                    input.btn.btn-success(type='submit', ng-show="view === 'formView'", value='Save', ng-click='save()', ng-disabled='presetFrm.$invalid')
+                    input.btn.btn-success(type='submit', ng-show="view === 'editView'", value='Update', ng-click='update()', ng-disabled='presetFrm.$invalid')

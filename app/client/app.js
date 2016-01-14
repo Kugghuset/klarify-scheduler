@@ -56,10 +56,10 @@ angular
                 controller: 'endpointsCtrl'
             });
 
-            $stateProvider.state('crons', {
-                url: '/user/crons',
-                templateUrl: './views/user/crons.html',
-                controller: ''
+            $stateProvider.state('presets', {
+                url: '/user/presets',
+                templateUrl: './views/user/presets.html',
+                controller: 'presetsCtrl'
             });
 
             //otherwise redirect to homepage

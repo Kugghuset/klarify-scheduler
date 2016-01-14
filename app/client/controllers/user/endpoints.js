@@ -13,6 +13,7 @@ angular
                 $scope.endpoints = [];
                 $scope.limit = 10;
                 $scope.showLoadMoreBtn = false;
+                $scope.presets = [];
 
                 $scope.loadEndpoints = function () {
                     $http
@@ -32,6 +33,21 @@ angular
                         });
 
                 };
+
+                $http
+                    .get('/api/presets', {params: {skip: $scope.presets.length, limit: $scope.limit}})
+                    .then(function (success) {
+                        $scope.presets = $scope.presets.concat(success.data);
+                    })
+                    .catch(function (error) {
+                        toaster
+                            .pop({
+                                type: 'error',
+                                title: 'Error',
+                                body: error.data,
+                                showCloseButton: true
+                            });
+                    });
 
                 $scope.loadEndpoints();
 

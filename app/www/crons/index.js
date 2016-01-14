@@ -24,6 +24,9 @@ var internals = {
             internals.crons[endpointId] = [];
         }
 
+        // set local time
+        Later.date.localTime();
+
         internals.crons[endpointId].push(Later.setInterval(function () {
             var payload = {
                 completeUrl: job.path,

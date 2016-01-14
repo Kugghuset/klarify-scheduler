@@ -1,8 +1,11 @@
 .container
     div(ng-if="view==='defaultView'", data-ng-show="view==='defaultView'")
         .row
-            button.btn.btn-info.pull-right(ng-click="createEndpoint()")
-                | Create Endpoint
+            .col-md-10
+                h1 Endpoints
+            .col-md-2
+                button.btn.btn-info.pull-right(ng-click="createEndpoint()")
+                    | Create Endpoint
         hr
         .row
             uib-accordion(close-others='true')
@@ -15,7 +18,7 @@
                                 i.fa.fa-pencil-square-o
                             button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
                                 i.fa.fa-trash
-                        table.table-responsive
+                        table.table-hover.table-responsive
                             tr
                                 td
                                     label Name
@@ -45,7 +48,7 @@
                                 td
                                     label Routes
                             tr
-                                table.table-bordered
+                                table.table-hover.table-bordered
                                     thead
                                         tr
                                             th
@@ -137,7 +140,7 @@
                                             label.col-sm-2.control-label
                                                 | Schedule
                                             .col-sm-10
-                                                input.form-control(type='text', name='schedule', data-ng-model='route.schedule', later-parse, placeholder='Route Interval...', autocomplete='off')
+                                                select.form-control(name='schedule', data-ng-model='route.schedule', ng-options='preset.value as preset.name for preset in presets')
                                                 div(data-ng-show='routeFrm.schedule.$dirty && routeFrm.schedule.$invalid')
                                                     span.help-block(data-ng-show='!routeFrm.schedule.hasFocus && routeFrm.schedule.$error.laterParse') is not a valid string
                                         button.btn.btn-danger.pull-right(ng-click='deleteRoute($index)', ng-disabled="endpoint.routes.length === 1")
