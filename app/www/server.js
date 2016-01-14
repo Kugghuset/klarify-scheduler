@@ -31,7 +31,7 @@ app.use(function (err, req, res, next) {
 
 // Passport setup
 require('./auth/passport-setup')(app);
-//require('./crons').runAllCrons();
+require('./crons').runAllCrons();
 require('./presets')();
 
 var server = app.listen(Config.web.port, function () {

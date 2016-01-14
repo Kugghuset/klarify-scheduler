@@ -70,8 +70,8 @@ router.put('/', require('../auth/auth-middleware'), validate(require('./validati
                 return res.status(500).send(err);
             }
 
-            //require('../crons')
-            //    .rescheduleCron(payload);
+            require('../crons')
+                .rescheduleCron(payload);
 
             res.json({success: true});
         })
@@ -86,10 +86,10 @@ router.delete('/', require('../auth/auth-middleware'), function (req, res) {
                 return res.status(500).send(err);
             }
 
-            //require('../crons')
-            //    .stopCron(payload.id, function () {
+            require('../crons')
+                .stopCron(payload.id, function () {
                     res.json({success: true});
-                //});
+                });
         })
 });
 
