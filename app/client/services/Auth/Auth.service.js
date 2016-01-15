@@ -51,6 +51,19 @@ angular
                 _user = user;
             },
 
+            getSessionUser: function () {
+                var deferred = $q.defer();
+                $http
+                    .get('/api/session')
+                    .then(function (user) {
+                        deferred.resolve(user.data);
+                    })
+                    .catch(function (error) {
+                        deferred.reject(error.data);
+                    });
+                return deferred.promise;
+            },
+
             /**
             * Sets _user to empty
             * and removes the token from cookies.

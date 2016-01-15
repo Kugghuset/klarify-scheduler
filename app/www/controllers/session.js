@@ -35,7 +35,7 @@ router.post('/sign-in', validate(require('./validations/sign-in')),  function(re
                     }
 
                     jwt.sign({id: user._id}, Config.appSecret, {}, function (token) {
-                        res.json(token);
+                        res.json({token: token, credentials: user});
                     });
                 })
         });

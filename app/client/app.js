@@ -10,6 +10,7 @@ require('../../bower_components/bootstrap/dist/js/bootstrap.js');
 require('../../bower_components/AngularJS-Toaster/toaster');
 require('../../bower_components/angular-bootstrap/ui-bootstrap-tpls');
 require('../../bower_components/angular-ui-switch/angular-ui-switch');
+require('../../bower_components/angular-permission/dist/angular-permission');
 
 angular
     .module('klarifyApp', [
@@ -17,8 +18,50 @@ angular
         'ngCookies',
         'toaster',
         'ui.bootstrap',
-        'uiSwitch'
+        'uiSwitch',
+        'permission'
     ])
+    .run(
+        [
+            'Permission',
+            'Auth',
+            '$q',
+            function (Permission, Auth, $q) {
+                Permission
+                    // public role.
+                    .defineRole('public', function () {
+                        var deferred = $q.defer();
+
+                        if (!Auth.isLoggedIn()) {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                        }
+                        return deferred.promise;
+                    })
+                    //admin role.
+                    .defineRole('user', function () {
+                        var deferred = $q.defer();
+
+                        if(Auth.getCurrentUser()) {
+                            deferred.resolve();
+                        } else {
+                            Auth
+                                .getSessionUser()
+                                .then(function (user) {
+                                    Auth.setUser(user);
+                                    deferred.resolve();
+                                })
+                                .catch(function () {
+                                    deferred.reject();
+                                });
+                        }
+
+                        return deferred.promise;
+                    })
+            }
+        ]
+    )
     .config([
         '$stateProvider',
         '$urlRouterProvider',
@@ -28,38 +71,68 @@ angular
             ///////////////////PUBLIC ROUTES//////////////////////////
             $stateProvider.state('home', {
                 url: '/home',
-                templateUrl: './views/public/home.html'
+                templateUrl: './views/public/home.html',
+                data: {
+                    permissions: {
+                        only: ['public']
+                    }
+                }
             });
 
             $stateProvider.state('register', {
                 url: '/register',
                 templateUrl:'./views/public/register.html',
-                controller: 'RegisterCtrl'
+                controller: 'RegisterCtrl',
+                data: {
+                    permissions: {
+                        only: ['public']
+                    }
+                }
             });
 
             $stateProvider.state('login', {
                 url: '/login',
                 templateUrl: './views/public/login.html',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                data: {
+                    permissions: {
+                        only: ['public']
+                    }
+                }
             });
 
             ///////////////////USER ROUTES///////////////////////////
             $stateProvider.state('dashboard', {
                 url: '/user/dashboard',
                 templateUrl: './views/user/dashboard.html',
-                controller: 'dashboardCtrl'
+                controller: 'dashboardCtrl',
+                data: {
+                    permissions: {
+                        only: ['user']
+                    }
+                }
             });
 
             $stateProvider.state('endpoints', {
                 url: '/user/endpoints',
                 templateUrl: './views/user/endpoints.html',
-                controller: 'endpointsCtrl'
+                controller: 'endpointsCtrl',
+                data: {
+                    permissions: {
+                        only: ['user']
+                    }
+                }
             });
 
             $stateProvider.state('presets', {
                 url: '/user/presets',
                 templateUrl: './views/user/presets.html',
-                controller: 'presetsCtrl'
+                controller: 'presetsCtrl',
+                data: {
+                    permissions: {
+                        only: ['user']
+                    }
+                }
             });
 
             //otherwise redirect to homepage

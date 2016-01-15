@@ -8,35 +8,35 @@ angular
             '$scope',
             '$rootScope',
             'Auth',
-            '$location',
+            '$state',
             'toaster',
-            function($scope, $rootScope, Auth, $location, toaster) {
-                $rootScope.$on('AuthLoggedIn', function () {
+            '$http',
+            function($scope, $rootScope, Auth, $state, toaster) {
+                $scope.user = null;
+
+                $scope.$on('$stateChangeSuccess', function () {
                     $scope.user = Auth.getCurrentUser();
-
-                });
-
-                $rootScope.$on('$stateChangeSuccess', function () {
-                    $scope.isLoggedIn = Auth.isLoggedIn();
                 });
 
                 $scope.logoClick = function () {
                     if(Auth.isLoggedIn()) {
-                        return $location.path('/user/dashboard');
+                        return $state.go('dashboard');
                     }
 
-                    $location.path('#');
+                    $state.go('home');
                 };
 
                 $scope.logout = function () {
                     Auth.logout();
+                    $scope.user = null;
+
                     toaster.pop({
                         type: 'info',
                         title: 'Info',
                         body: 'Logged out',
                         showCloseButton: true
                     });
-                    $location.path('/');
+                    $state.go('login');
                 }
             }
         ]);

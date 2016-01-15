@@ -8,8 +8,8 @@ angular.module('klarifyApp')
             '$http',
             'toaster',
             '$cookies',
-            '$location',
-            function ($scope, $http, toaster, $cookies, $location) {
+            '$state',
+            function ($scope, $http, toaster, $cookies, $state) {
                 $scope.emailPattern  = /^([a-zA-Z0-9])+([a-zA-Z0-9._%+-])+@([a-zA-Z0-9_.-])+\.(([a-zA-Z]){2,6})$/;
 
                 $scope.register = function () {
@@ -25,7 +25,7 @@ angular.module('klarifyApp')
                                 title: 'Success',
                                 body: 'You have registered successfully!'
                             });
-                            $location.path('/user/dashboard');
+                            $state.go('dashboard');
                         })
                         .catch(function (err) {
                             toaster.pop({

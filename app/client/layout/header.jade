@@ -3,12 +3,12 @@ nav.navbar.navbar-default(ng-controller='navbarCtrl')
         .navbar-header
         .container
             a.navbar-brand(href='', ng-click="logoClick()") Klarify Scheduler
-            ul.nav.navbar-nav.pull-right(ng-hide='isLoggedIn')
+            ul.nav.navbar-nav.pull-right(ng-hide='user')
                 li
                     a(href='#/register') Sign Up
                 li
                     a(href='#/login') Sign In
-            ul.nav.navbar-nav.pull-right(ng-show='isLoggedIn')
+            ul.nav.navbar-nav.pull-right(ng-show='user')
                 li.dropdown
                     a.dropdown-toggle(href='', data-toggle='dropdown')
                         | {{user.email}}
