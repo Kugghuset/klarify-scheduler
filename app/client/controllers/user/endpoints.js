@@ -167,5 +167,31 @@ angular
                             });
                     }
                 };
+
+                $scope.requestEndpoint = function (endpointId, index) {
+                    if (confirm("This will make a request on the route.")) {
+                        $http
+                            .get('/api/endpoints/request', {params: {endpointId: endpointId, routeIndex: index}})
+                            .then(function (success) {
+                                toaster
+                                    .pop({
+                                        type: 'info',
+                                        title: 'Info',
+                                        body: success.data,
+                                        showCloseButton: true
+                                    });
+                            })
+                            .catch(function (error) {
+                                toaster
+                                    .pop({
+                                        type: 'error',
+                                        title: 'Error',
+                                        body: error.data,
+                                        showCloseButton: true
+                                    });
+                            });
+                    }
+
+                }
             }
         ]);

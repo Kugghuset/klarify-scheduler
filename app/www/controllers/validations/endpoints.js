@@ -25,5 +25,12 @@ module.exports = {
             createdAt: Joi.date().default(new Date()),
             updatedAt: Joi.date().default(new Date())
         }
+    },
+
+    request: {
+        query: {
+            endpointId: Joi.string().required().label('Endpoint Id'),
+            routeIndex: Joi.number().required().label('Route Index')
+        }
     }
 };

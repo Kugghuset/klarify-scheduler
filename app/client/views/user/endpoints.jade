@@ -61,12 +61,16 @@
                                                 label Interval
                                             th
                                                 label Schedule
+                                            th
+                                                label Make Request
                                     tbody(ng-repeat='route in endpoint.routes track by $index')
                                         tr
                                             td {{route.name}}
                                             td {{route.subDirectory}}
                                             td {{route.interval}}
                                             td {{route.schedule}}
+                                            td
+                                                button.btn.btn-success(ng-click="requestEndpoint(endpoint._id, $index)") Request
         .row
             button.btn.btn-info.center-block(ng-show="showLoadMoreBtn", ng-click="loadEndpoints()")
                 | Load More...

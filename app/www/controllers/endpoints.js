@@ -5,6 +5,7 @@ var router = express.Router();
 var validate = require('express-validation');
 var _ = require('lodash');
 var EndpointRepo = require('../models/endpoint');
+var Http = require('superagent');
 
 router.get('/', require('../auth/auth-middleware'), validate(require('./validations/endpoints').get), function (req, res) {
     var payload = req.query;
@@ -89,6 +90,33 @@ router.delete('/', require('../auth/auth-middleware'), function (req, res) {
             require('../crons')
                 .stopCron(payload.id, function () {
                     res.json({success: true});
+                });
+        })
+});
+
+router.get('/request', require('../auth/auth-middleware'), validate(require('./validations/endpoints').request), function (req, res) {
+    var payload = req.query;
+
+    EndpointRepo
+        .findOne({_id: payload.endpointId}, function (err, endpoint) {
+            if(err) {
+                return res.status(500).json(err);
+            }
+
+            if(!endpoint) {
+                return res.status(400).send("Endpoint doesn't exists.");
+            }
+
+            var path = endpoint.baseUrl + (endpoint.subDirectory?'/'+endpoint.subdirectory:'')  + (endpoint.routes[payload.routeIndex].subDirectory?'/'+endpoint.routes[payload.routeIndex].subDirectory:'');
+
+            Http
+                .get(path)
+                .end(function (err, data) {
+                    if(err) {
+                        res.status(err.status || 400).send(err);
+                    } else {
+                        res.status(data.statusCode).send(data.body);
+                    }
                 });
         })
 });
