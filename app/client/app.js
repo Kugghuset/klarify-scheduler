@@ -74,7 +74,7 @@ angular
                 templateUrl: './views/public/home.html',
                 data: {
                     permissions: {
-                        only: ['public']
+                        only: ['public', 'user']
                     }
                 }
             });
