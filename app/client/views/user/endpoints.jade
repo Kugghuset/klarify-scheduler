@@ -11,67 +11,79 @@
                 .col-md-6.user-endpoints(ng-repeat='endpoint in endpoints track by endpoint._id')
                     uib-accordion-group
                         uib-accordion-heading
-                            h2 {{$index + 1}}
-                                .text-capitalize {{endpoint.name}}
+                            h2
+                                span {{$index + 1}}
+                                p.text-capitalize.pull-left
+                                    | {{endpoint.name}}
+                                i.pull-right
+                                    img(src="/images/arrow-circle-right-mini.png")
                         div(ng-hide="editMode === endpoint._id")
-                            div.pull-right
-                                button.btn.btn-info(ng-click='editEndpoint(endpoint)')
-                                    i.fa.fa-pencil-square-o
-                                button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
-                                    i.fa.fa-trash
-                            table.table-hover.table-responsive
+                            table.table-bordered
+
                                 tr
                                     td
-                                        label Name
+                                        label.pull-left Name
                                     td
-                                        | {{endpoint.name}}
+                                        span
+                                            | {{endpoint.name}}
+                                    td
+                                        div.pull-right
+                                            button.btn.btn-info.btn-mini.bg-primary(ng-click='editEndpoint(endpoint)')
+                                                i.fa.fa-pencil-square-o
+                                            button.btn.btn-danger.btn-mini(ng-click='deleteEndpoint(endpoint._id)')
+                                                i.fa.fa-trash
                                 tr
                                     td
-                                        label Base URL
+                                        label.pull-left Base URL
                                     td
-                                        | {{endpoint.baseUrl}}
+                                        span
+                                            | {{endpoint.baseUrl}}
                                 tr
                                     td
-                                        label Sub Directory
+                                        label.pull-left Sub Directory
                                     td
-                                        | {{endpoint.subDirectory}}
+                                        span
+                                            | {{endpoint.subDirectory}}
                                 tr
                                     td
-                                        label Description
+                                        label.pull-left Description
                                     td
-                                        | {{endpoint.description}}
+                                        span
+                                            | {{endpoint.description}}
                                 tr
                                     td
-                                        label Disabled
+                                        label.pull-left Disabled
                                     td
-                                        | {{endpoint.isDisabled}}
+                                        span
+                                            | {{endpoint.isDisabled}}
                                 tr
                                     td
                                         label Routes
-                                tr
-                                    table.table-hover.table-bordered
-                                        thead
-                                            tr
-                                                th
-                                                    label Name
+                            .clearfix
+                            .table-responsive
+                                table.table-hover.table-bordered.table-striped
+                                    thead
+                                        tr
+                                            th
+                                                label Name
 
-                                                th
-                                                    label Sub Directory
+                                            th
+                                                label Sub Directory
 
-                                                th
-                                                    label Interval
-                                                th
-                                                    label Schedule
-                                                th
-                                                    label Make Request
-                                        tbody(ng-repeat='route in endpoint.routes track by $index')
-                                            tr
-                                                td {{route.name}}
-                                                td {{route.subDirectory}}
-                                                td {{route.interval}}
-                                                td {{route.schedule}}
-                                                td
-                                                    button.btn.btn-success(ng-click="requestEndpoint(endpoint._id, $index)") Request
+                                            th
+                                                label Interval
+                                            th
+                                                label Schedule
+                                            th
+                                                label Make Request
+                                    tbody
+                                        tr(ng-repeat='route in endpoint.routes track by $index')
+                                            td {{route.name}}
+                                            td {{route.subDirectory}}
+                                            td {{route.interval}}
+                                            td {{route.schedule}}
+                                            td
+                                                button.btn.btn-warning.create-endpoints-btn(ng-click="requestEndpoint(endpoint._id, $index)") Request
                         div(ng-show="editMode === endpoint._id")
                             div.pull-right
                                 input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
