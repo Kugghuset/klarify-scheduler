@@ -15,6 +15,7 @@ angular
                 $scope.presets = [];
                 $scope.limit = 10;
                 $scope.showLoadMore = false;
+                $scope.editMode = null;
 
                 $scope.loadPresets = function () {
                     $http
@@ -57,7 +58,6 @@ angular
                         .then(function (success) {
 
                             $scope.presets.push(success.data);
-                            $scope.editPreset(success.data);
                             toaster
                                 .pop({
                                     type: 'success',
@@ -65,6 +65,7 @@ angular
                                     body: "Preset saved successfully.",
                                     showCloseButton: true
                                 });
+                            $scope.cancel();
                         })
                         .catch(function (error) {
                             toaster
@@ -78,8 +79,12 @@ angular
                 };
 
                 $scope.editPreset = function (preset) {
-                    $scope.view = 'editView';
-                    $scope.preset = preset;
+                    $scope.preset = angular.copy(preset);
+                    $scope.editMode = preset._id;
+                };
+
+                $scope.cancelEditMode = function () {
+                    $scope.editMode = null;
                 };
 
                 $scope.deletePreset = function (presetId) {
@@ -119,7 +124,13 @@ angular
                     $http
                         .put('/api/presets', $scope.preset)
                         .then(function () {
-                            $scope.editPreset($scope.preset);
+                            $scope.presets = _.chain($scope.presets)
+                                .map(function (preset) {
+                                    return preset._id === $scope.preset._id ? $scope.preset : preset;
+                                })
+                                .value();
+
+                            $scope.cancelEditMode();
                             toaster
                                 .pop({
                                     type: 'success',
