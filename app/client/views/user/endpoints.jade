@@ -1,11 +1,10 @@
 .container
     div(ng-if="view==='defaultView'", data-ng-show="view==='defaultView'")
         .row
-            .col-md-10
-                h1 Endpoints
-            .col-md-2
-                button.btn.btn-info.pull-right(ng-click="createEndpoint()")
-                    | Create Endpoint
+            .col-md-12
+                h1.title Endpoints
+                    button.btn.btn-warning.pull-right.create-endpoints-btn(ng-click="createEndpoint()")
+                        | Create Endpoint
         hr
         .row
             uib-accordion(close-others='true')

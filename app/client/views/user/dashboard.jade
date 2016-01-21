@@ -1,8 +1,18 @@
 .container
-    .row
-        .col-md-4.well
-            a(href='#/user/endpoints')
-                | Endpoints
-        .col-md-4.col-md-offset-1.well
-            a(href='#/user/presets')
-                | Presets
+    .row.dashboard-wrap
+        .col-md-offset-2.col-md-4
+            .well
+                a.text-center(href='#/user/endpoints')
+                    i.hvr-radial-out
+                        img(src="/images/endpoints-icon.png")
+                    h4 Endpoints
+                        span
+                            img(src="/images/arrow-circle-right.png")
+        .col-md-4
+            .well
+                a.text-center(href='#/user/presets')
+                    i.hvr-radial-out
+                        img(src="/images/presets-icon.png")
+                    h4 Presets
+                        span
+                            img(src="/images/arrow-circle-right.png")
