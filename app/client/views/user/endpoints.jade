@@ -14,7 +14,7 @@
                             h2
                                 span {{$index + 1}}
                                 p.text-capitalize.pull-left
-                                    | {{endpoint.name}}
+                                    | {{endpointItem.name}}
                                 i.pull-right
                                     img(src="/images/arrow-circle-right-mini.png")
                         div(ng-hide="editMode === endpoint._id")
@@ -25,37 +25,37 @@
                                         label.pull-left Name
                                     td
                                         span
-                                            | {{endpoint.name}}
+                                            | {{endpointItem.name}}
                                     td
                                         div.pull-right
-                                            button.btn.btn-info.btn-mini.bg-primary(ng-click='editEndpoint(endpoint)')
+                                            button.btn.btn-info.btn-mini.bg-primary(ng-click='editEndpoint(endpointItem)')
                                                 i.fa.fa-pencil-square-o
-                                            button.btn.btn-danger.btn-mini(ng-click='deleteEndpoint(endpoint._id)')
+                                            button.btn.btn-danger.btn-mini(ng-click='deleteEndpoint(endpointItem._id)')
                                                 i.fa.fa-trash
                                 tr
                                     td
                                         label.pull-left Base URL
                                     td
                                         span
-                                            | {{endpoint.baseUrl}}
+                                            | {{endpointItem.baseUrl}}
                                 tr
                                     td
                                         label.pull-left Sub Directory
                                     td
                                         span
-                                            | {{endpoint.subDirectory}}
+                                            | {{endpointItem.subDirectory}}
                                 tr
                                     td
                                         label.pull-left Description
                                     td
                                         span
-                                            | {{endpoint.description}}
+                                            | {{endpointItem.description}}
                                 tr
                                     td
                                         label.pull-left Disabled
                                     td
                                         span
-                                            | {{endpoint.isDisabled}}
+                                            | {{endpointItem.isDisabled}}
                                 tr
                                     td
                                         label Routes
@@ -77,7 +77,7 @@
                                             th
                                                 label Make Request
                                     tbody
-                                        tr(ng-repeat='route in endpoint.routes track by $index')
+                                        tr(ng-repeat='route in endpointItem.routes track by $index')
                                             td {{route.name}}
                                             td {{route.subDirectory}}
                                             td {{route.interval}}
