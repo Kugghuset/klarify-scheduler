@@ -11,69 +11,142 @@
                 .col-md-6.user-endpoints(ng-repeat='endpoint in endpoints track by endpoint._id')
                     uib-accordion-group
                         uib-accordion-heading
-                            .text-capitalize {{endpoint.name}}
-                        div.pull-right
-                            button.btn.btn-info(ng-click='editEndpoint(endpoint)')
-                                i.fa.fa-pencil-square-o
-                            button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
-                                i.fa.fa-trash
-                        table.table-hover.table-responsive
-                            tr
-                                td
-                                    label Name
-                                td
-                                    |{{endpoint.name}}
-                            tr
-                                td
-                                    label Base URL
-                                td
-                                    | {{endpoint.baseUrl}}
-                            tr
-                                td
-                                    label Sub Directory
-                                td
-                                    | {{endpoint.subDirectory}}
-                            tr
-                                td
-                                    label Description
-                                td
-                                    | {{endpoint.description}}
-                            tr
-                                td
-                                    label Disabled
-                                td
-                                    | {{endpoint.isDisabled}}
-                            tr
-                                td
-                                    label Routes
-                            tr
-                                table.table-hover.table-bordered
-                                    thead
-                                        tr
-                                            th
-                                                label Name
+                            h2 {{$index + 1}}
+                                .text-capitalize {{endpoint.name}}
+                        div(ng-hide="editMode === endpoint._id")
+                            div.pull-right
+                                button.btn.btn-info(ng-click='editEndpoint(endpoint)')
+                                    i.fa.fa-pencil-square-o
+                                button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
+                                    i.fa.fa-trash
+                            table.table-hover.table-responsive
+                                tr
+                                    td
+                                        label Name
+                                    td
+                                        | {{endpoint.name}}
+                                tr
+                                    td
+                                        label Base URL
+                                    td
+                                        | {{endpoint.baseUrl}}
+                                tr
+                                    td
+                                        label Sub Directory
+                                    td
+                                        | {{endpoint.subDirectory}}
+                                tr
+                                    td
+                                        label Description
+                                    td
+                                        | {{endpoint.description}}
+                                tr
+                                    td
+                                        label Disabled
+                                    td
+                                        | {{endpoint.isDisabled}}
+                                tr
+                                    td
+                                        label Routes
+                                tr
+                                    table.table-hover.table-bordered
+                                        thead
+                                            tr
+                                                th
+                                                    label Name
 
-                                            th
-                                                label Sub Directory
+                                                th
+                                                    label Sub Directory
 
-                                            th
-                                                label Interval
-                                            th
-                                                label Schedule
-                                            th
-                                                label Make Request
-                                    tbody(ng-repeat='route in endpoint.routes track by $index')
-                                        tr
-                                            td {{route.name}}
-                                            td {{route.subDirectory}}
-                                            td {{route.interval}}
-                                            td {{route.schedule}}
-                                            td
-                                                button.btn.btn-success(ng-click="requestEndpoint(endpoint._id, $index)") Request
+                                                th
+                                                    label Interval
+                                                th
+                                                    label Schedule
+                                                th
+                                                    label Make Request
+                                        tbody(ng-repeat='route in endpoint.routes track by $index')
+                                            tr
+                                                td {{route.name}}
+                                                td {{route.subDirectory}}
+                                                td {{route.interval}}
+                                                td {{route.schedule}}
+                                                td
+                                                    button.btn.btn-success(ng-click="requestEndpoint(endpoint._id, $index)") Request
+                        div(ng-show="editMode === endpoint._id")
+                            div.pull-right
+                                input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
+                                input.btn.btn-success(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
+                            form(name='endpointEditFrm', novalidate='true' ng-show='editMode')
+                                .form-horizontal
+                                    .form-group(data-ng-class="{'has-error': endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid }")
+                                        label.col-md-2.control-label
+                                            | Name
+                                        .col-md-6
+                                            input.form-control(type='text', name='name', data-ng-model='endpoint.name', required='required', placeholder='Endpoint Name...', autocomplete='off')
+                                            div(data-ng-show='endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid')
+                                                span.help-block(data-ng-show='!endpointEditFrm.name.hasFocus && endpointEditFrm.name.$error.required') Required
+                                    .form-group(data-ng-class="{'has-error': endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid }")
+                                        label.col-md-2.control-label
+                                            | Base URL
+                                        .col-md-6
+                                            input.form-control(type='url', name='baseUrl', data-ng-model='endpoint.baseUrl', placeholder='Base URL...', required='required', autocomplete='off')
+                                            div(data-ng-show='endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid')
+                                                span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.required') Required
+                                                span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.url') is not a valid url
+                                    .form-group
+                                        label.col-md-2.control-label
+                                            | Subdirectory
+                                        .col-md-6
+                                            input.form-control(type='text', name='subdir', data-ng-model='endpoint.subDirectory', placeholder='Subdirectory...', autocomplete='off')
+                                    .form-group
+                                        label.col-md-2.control-label
+                                            | Description
+                                        .col-md-6
+                                            input.form-control(type='text', name='desc', data-ng-model='endpoint.description', placeholder='Endpoint Description...', autocomplete='off')
+                                    .form-group
+                                        label.col-md-2.control-label
+                                            | Disabled
+                                        .col-md-6
+                                            switch.form-control(data-ng-model='endpoint.isDisabled')
+                                    .form-group
+                                        label.col-md-2.control-label
+                                            | Routes
+                                        .col-md-10
+                                            button.btn.btn-info.pull-right(ng-click='addRoute()', title="Add new route")
+                                                i.fa.fa-plus
+                                            .clearfix
+                                        table.table-hover.table-bordered
+                                            thead
+                                                tr
+                                                    th
+                                                        label Name
+
+                                                    th
+                                                        label Sub Directory
+
+                                                    th
+                                                        label Interval
+                                                    th
+                                                        label Schedule
+                                                    th
+                                                        label Action
+                                            tbody(ng-repeat='route in endpoint.routes track by $index')
+                                                tr
+                                                    td
+                                                        input.form-control(type='text', name='name', data-ng-model='route.name', placeholder='Route Name...', autocomplete='off')
+                                                    td
+                                                        input.form-control(type='text', name='subdir', data-ng-model='route.subDirectory', placeholder='Route Subdirectory...', required='required', autocomplete='off')
+                                                    td
+                                                        input.form-control(type='text', name='interval', data-ng-model='route.interval', placeholder='Route Interval...', required='required', autocomplete='off')
+                                                    td
+                                                        select.form-control(name='schedule', data-ng-model='route.schedule', ng-options='preset.value as preset.name for preset in presets')
+                                                    td
+                                                        button.btn.btn-danger(ng-click='deleteRoute($index)', ng-disabled='endpoint.routes.length === 1')
+                                                            i.fa.fa-trash
         .row
             button.btn.btn-info.center-block(ng-show="showLoadMoreBtn", ng-click="loadEndpoints()")
                 | Load More...
-    div(data-ng-show="view==='formView' || view === 'editView'")
+    div(data-ng-show="view==='formView'")
         .row
             button.btn.btn-danger.pull-right(ng-click="cancel()")
                 | Back
@@ -152,5 +225,4 @@
                                 hr
                     div.pull-right
                         input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
-                        input.btn.btn-success(type='submit', ng-show="view === 'formView'", value='Save', ng-click='save()', ng-disabled='endpointFrm.$invalid')
-                        input.btn.btn-success(type='submit', ng-show="view === 'editView'", value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
+                        input.btn.btn-success(type='submit', value='Save', ng-click='save()', ng-disabled='endpointFrm.$invalid')

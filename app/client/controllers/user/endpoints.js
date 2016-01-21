@@ -14,6 +14,7 @@ angular
                 $scope.limit = 10;
                 $scope.showLoadMoreBtn = false;
                 $scope.presets = [];
+                $scope.editMode = null;
 
                 $scope.loadEndpoints = function () {
                     $http
@@ -83,6 +84,10 @@ angular
                     $scope.endpointFrm.$setPristine();
                 };
 
+                $scope.cancelEdit = function () {
+                    $scope.editMode = null;
+                };
+
                 $scope.save = function () {
                     $http
                         .post('/api/endpoints', $scope.endpoint)
@@ -110,7 +115,7 @@ angular
 
                 $scope.editEndpoint = function (endpoint) {
                     $scope.endpoint = endpoint;
-                    $scope.view = 'editView';
+                    $scope.editMode = endpoint._id;
                 };
 
                 $scope.update = function () {
@@ -124,6 +129,7 @@ angular
                                     body: 'Endpoint updated successfully',
                                     showCloseButton: true
                                 });
+                            $scope.cancelEdit();
                         })
                         .catch(function (err) {
                             toaster
