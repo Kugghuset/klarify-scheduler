@@ -13,8 +13,8 @@ module.exports = {
         body : {
             name: Joi.string().label('Name').required(),
             baseUrl: Joi.string().uri().required().label('Base URL'),
-            subDirectory: Joi.string().label('Sub Directory'),
-            description: Joi.string().label('Description'),
+            subDirectory: Joi.string().allow('').label('Sub Directory'),
+            description: Joi.string().allow('').label('Description'),
             isDisabled: Joi.boolean().label('Disabled'),
             routes: Joi.array().items(Joi.object().keys({
                 name: Joi.string(),

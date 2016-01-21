@@ -9,43 +9,43 @@
         hr
         .row
             uib-accordion(close-others='true')
-                .col-md-6.user-endpoints(ng-repeat='endpoint in endpoints track by endpoint._id')
+                .col-md-6.user-endpoints(ng-repeat='endpointItem in endpoints track by $index')
                     uib-accordion-group
                         uib-accordion-heading
                             h2 {{$index + 1}}
-                                .text-capitalize {{endpoint.name}}
+                                .text-capitalize {{endpointItem.name}}
                         div(ng-hide="editMode === endpoint._id")
                             div.pull-right
-                                button.btn.btn-info(ng-click='editEndpoint(endpoint)')
+                                button.btn.btn-info(ng-click='editEndpoint(endpointItem)')
                                     i.fa.fa-pencil-square-o
-                                button.btn.btn-danger(ng-click='deleteEndpoint(endpoint._id)')
+                                button.btn.btn-danger(ng-click='deleteEndpoint(endpointItem._id)')
                                     i.fa.fa-trash
                             table.table-hover.table-responsive
                                 tr
                                     td
                                         label Name
                                     td
-                                        | {{endpoint.name}}
+                                        | {{endpointItem.name}}
                                 tr
                                     td
                                         label Base URL
                                     td
-                                        | {{endpoint.baseUrl}}
+                                        | {{endpointItem.baseUrl}}
                                 tr
                                     td
                                         label Sub Directory
                                     td
-                                        | {{endpoint.subDirectory}}
+                                        | {{endpointItem.subDirectory}}
                                 tr
                                     td
                                         label Description
                                     td
-                                        | {{endpoint.description}}
+                                        | {{endpointItem.description}}
                                 tr
                                     td
                                         label Disabled
                                     td
-                                        | {{endpoint.isDisabled}}
+                                        | {{endpointItem.isDisabled}}
                                 tr
                                     td
                                         label Routes
@@ -65,7 +65,7 @@
                                                     label Schedule
                                                 th
                                                     label Make Request
-                                        tbody(ng-repeat='route in endpoint.routes track by $index')
+                                        tbody(ng-repeat='route in endpointItem.routes track by $index')
                                             tr
                                                 td {{route.name}}
                                                 td {{route.subDirectory}}
@@ -73,7 +73,7 @@
                                                 td {{route.schedule}}
                                                 td
                                                     button.btn.btn-success(ng-click="requestEndpoint(endpoint._id, $index)") Request
-                        div(ng-show="editMode === endpoint._id")
+                        div(ng-show="editMode === endpointItem._id")
                             div.pull-right
                                 input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
                                 input.btn.btn-success(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')

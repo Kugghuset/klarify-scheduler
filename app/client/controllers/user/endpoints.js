@@ -100,7 +100,6 @@ angular
                                     showCloseButton: true
                                 });
                             $scope.endpoints.push(success.data);
-                            $scope.editEndpoint(success.data);
                         })
                         .catch(function (err) {
                             toaster
@@ -114,7 +113,7 @@ angular
                 };
 
                 $scope.editEndpoint = function (endpoint) {
-                    $scope.endpoint = endpoint;
+                    $scope.endpoint = angular.copy(endpoint);
                     $scope.editMode = endpoint._id;
                 };
 
@@ -122,6 +121,12 @@ angular
                     $http
                         .put('/api/endpoints', $scope.endpoint)
                         .then(function (success) {
+
+                            $scope.endpoints = _.chain($scope.endpoints)
+                                .map(function (endpoint) {
+                                    return endpoint._id === $scope.endpoint._id ? $scope.endpoint : endpoint;
+                                })
+                                .value();
                             toaster
                                 .pop({
                                     type: 'success',
