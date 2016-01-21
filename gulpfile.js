@@ -41,12 +41,26 @@ gulp.task('vendor', function () {
         .pipe(gulp.dest('build/fonts'));
 });
 
+// Images
+gulp.task('images', function () {
+    src.images = 'app/assets/images/**';
+
+    return gulp.src(src.images)
+            .pipe($.changed(DEST + '/images'))
+            .pipe($.imagemin({
+                progressive: true,
+                interlaced: true
+            }))
+            .pipe(gulp.dest(DEST + '/images'))
+            .pipe($.size({title: 'images'}))
+});
+
 // CSS style sheets
 gulp.task('styles', function () {
     src.styles = 'app/assets/styles/*';
 
     return gulp
-        .src([ 'app/assets/styles/main.less'])
+        .src(src.styles)
         .pipe($.plumber())
         .pipe($.less())
         .on('error', console.error.bind(console))
@@ -80,7 +94,7 @@ gulp.task('views', function() {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['vendor', 'styles', 'jade', 'views', 'bundle'], cb);
+    runSequence(['vendor', 'styles', 'images', 'jade', 'views', 'bundle'], cb);
 });
 
 // Build and start watching for modifications
@@ -90,6 +104,7 @@ gulp.task('build:watch', function (cb) {
         gulp.watch(src.styles, ['styles']);
         gulp.watch(src.views, ['views']);
         gulp.watch(src.index, ['jade']);
+        gulp.watch(src.images, ['images']);
         cb();
     });
 });
