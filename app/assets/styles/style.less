@@ -6,21 +6,35 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'opensans-regular';
+    src: url('../fonts/opensans-regular-webfont.eot');
+    src: url('../fonts/opensans-regular-webfont.svg') format('svg'), url('../fonts/opensans-regular-webfont.woff') format('woff'),
+    url('../fonts/opensans-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .user-endpoints{
 margin-bottom: 30px;
 }
 .user-endpoints .table-bordered{
     width:100%;
+    border: none;
 }
 
 .presets {
     margin-bottom: 30px;
 }
 body{
-    font-family: 'opensans-light';
+    font-family: 'opensans-regular';
 }
-
-
+.mt30{
+    margin-top: 30px;
+}
+.f17{
+    font-size: 17px !important;
+}
 /*---------------Header.css----------*/
 
 a{
@@ -245,7 +259,34 @@ footer h4{
 .table-bordered > tbody> tr > td label{
     font-size: 15px;
     color: #181818;
+    font-weight: normal;
 }
 .btn-warning{
     background-color: #f68f38;
+}
+.form-horizontal .control-label{
+    text-align: left;
+    font-weight: normal;
+}
+.editable-input input[type="text"],.editable-input input[type="button"],.editable-input input[type="submit"]   {
+    border-radius: 0;
+    margin: 0 3px;
+}
+.editable-input input[type="text"]{
+    height: 30px;
+}
+.form-horizontal .form-group{
+    margin: 20px 0 0 0;
+    float: left;
+    width: 100%;
+}
+.h-line{
+    border-top: 1px solid #CFCFCF !important;
+    width: 100%;
+}
+hr{
+    margin-bottom: 0;
+}
+.table-responsive{
+    margin-top: 20px;
 }
