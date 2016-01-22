@@ -61,7 +61,7 @@
                                         label.f17 Routes
 
                             .clearfix
-                            .table-responsive.panel-less-padding
+                            .table-responsive.panel-less-padding.show-result-table
                                 table.table.table-hover.table-bordered.table-striped
                                     thead
                                         tr
@@ -86,60 +86,61 @@
                                             td
                                                 button.btn.btn-warning.create-endpoints-btn(ng-click="requestEndpoint(endpoint._id, $index)") Request
                         div.editable-input(ng-show="editMode === endpointItem._id")
-
                             form(name='endpointEditFrm', novalidate='true' ng-show='editMode')
-                                .form-horizontal
-                                    .form-group(data-ng-class="{'has-error': endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid }")
-                                        .col-md-2
-                                            label.control-label
-                                                | Name
-                                        .col-md-6
-                                            input.form-control.pull-left(type='text', name='name', data-ng-model='endpoint.name', required='required', placeholder='Endpoint Name...', autocomplete='off')
-                                            div(data-ng-show='endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid')
-                                                span.help-block(data-ng-show='!endpointEditFrm.name.hasFocus && endpointEditFrm.name.$error.required') Required
-                                        .col-md-4
-                                            div.pull-left
-                                                input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
-                                                input.btn.btn-success(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
-                                    .form-group(data-ng-class="{'has-error': endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid }")
-                                        .col-md-2
-                                            label.control-label
-                                                | Base URL
-                                        .col-md-6
-                                            input.form-control(type='url', name='baseUrl', data-ng-model='endpoint.baseUrl', placeholder='Base URL...', required='required', autocomplete='off')
-                                            div(data-ng-show='endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid')
-                                                span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.required') Required
-                                                span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.url') is not a valid url
-                                    .form-group
-                                        .col-md-2
-                                            label.control-label
-                                                | Subdirectory
-                                        .col-md-6
-                                            input.form-control(type='text', name='subdir', data-ng-model='endpoint.subDirectory', placeholder='Subdirectory...', autocomplete='off')
-                                    .form-group
-                                        .col-md-2
-                                            label.control-label
-                                                | Description
-                                        .col-md-6
-                                            input.form-control(type='text', name='desc', data-ng-model='endpoint.description', placeholder='Endpoint Description...', autocomplete='off')
-                                    .form-group
-                                        .col-md-2
-                                            label.control-label
-                                                | Disabled
-                                        .col-md-6
-                                            switch.form-control(data-ng-model='endpoint.isDisabled')
-                                    .clearfix
-                                    hr
-                                    .form-group
-                                        .col-md-2
-                                            label.control-label.f17
-                                                | Routes
-                                        .col-md-10
-                                            button.btn.btn-info.pull-right.btn-mini.bg-primary(ng-click='addRoute()', title="Add new route")
-                                                i.fa.fa-plus
+                                .clearfix
+                                .table-responsive.panel-less-padding.edit-table.cssFade
+                                    table.table
+                                        tr
+                                            td
+                                                span(data-ng-class="{'has-error': endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid }")
+                                                    label.control-label
+                                                        | Name
+                                            td
+                                                input.form-control.pull-left(type='text', name='name', data-ng-model='endpoint.name', required='required', placeholder='Endpoint Name...', autocomplete='off')
+                                                div(data-ng-show='endpointEditFrm.name.$dirty && endpointEditFrm.name.$invalid')
+                                                    span.help-block(data-ng-show='!endpointEditFrm.name.hasFocus && endpointEditFrm.name.$error.required') Required
+                                            td
+                                                div.pull-right
+                                                    input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
+                                                    input.btn.btn-success(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
+                                            tr
+                                                td
+                                                    span(data-ng-class="{'has-error': endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid }")
+                                                    label.control-label
+                                                        | Base URL
+                                                td(colspan=2)
+                                                    input.form-control(type='url', name='baseUrl', data-ng-model='endpoint.baseUrl', placeholder='Base URL...', required='required', autocomplete='off')
+                                                    div(data-ng-show='endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid')
+                                                        span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.required') Required
+                                                        span.help-block(data-ng-show='!endpointEditFrm.baseUrl.hasFocus && endpointEditFrm.baseUrl.$error.url') is not a valid url
+                                            tr
+                                                td
+                                                    label.control-label
+                                                        | Subdirectory
+                                                td(colspan=2)
+                                                    input.form-control(type='text', name='subdir', data-ng-model='endpoint.subDirectory', placeholder='Subdirectory...', autocomplete='off')
+                                            tr
+                                                td
+                                                    label.control-label
+                                                        | Description
+                                                td(colspan=2)
+                                                    input.form-control(type='text', name='desc', data-ng-model='endpoint.description', placeholder='Endpoint Description...', autocomplete='off')
+                                            tr
+                                                td
+                                                    label.control-label
+                                                        | Disabled
+                                                td(colspan=2)
+                                                    switch.form-control(data-ng-model='endpoint.isDisabled')
+                                            tr.h-line(colspan=3)
+                                                td
+                                                    label.control-label.f17
+                                                        | Routes
+                                                td(colspan=2)
+                                                    button.btn.btn-info.pull-right.btn-mini.bg-primary(ng-click='addRoute()', title="Add new route")
+                                                        i.fa.fa-plus
                                     .clearfix
                                     .table-responsive
-                                        table.table.table-hover.table-bordered
+                                        table.table.table-hover.table-bordered.table-striped
                                             thead
                                                 tr
                                                     th
@@ -154,8 +155,8 @@
                                                         label Schedule
                                                     th
                                                         label Action
-                                            tbody(ng-repeat='route in endpoint.routes track by $index')
-                                                tr
+                                            tbody
+                                                tr(ng-repeat='route in endpoint.routes track by $index')
                                                     td
                                                         input.form-control(type='text', name='name', data-ng-model='route.name', placeholder='Route Name...', autocomplete='off')
                                                     td

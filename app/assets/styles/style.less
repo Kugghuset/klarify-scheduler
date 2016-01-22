@@ -7,6 +7,14 @@
     font-style: normal;
 }
 @font-face {
+    font-family: 'myriadproregular';
+    src: url('../fonts/myriadproregular.eot');
+    src: url('../fonts/myriadproregular.svg') format('svg'), url('../fonts/myriadproregular.woff') format('woff'),
+    url('../fonts/myriadproregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: 'opensans-regular';
     src: url('../fonts/opensans-regular-webfont.eot');
     src: url('../fonts/opensans-regular-webfont.svg') format('svg'), url('../fonts/opensans-regular-webfont.woff') format('woff'),
@@ -21,13 +29,14 @@ margin-bottom: 30px;
 .user-endpoints .table-bordered{
     width:100%;
     border: none;
+    margin-bottom: 0;
 }
 
 .presets {
     margin-bottom: 30px;
 }
 body{
-    font-family: 'opensans-regular';
+    font-family: 'myriadproregular';
 }
 .mt30{
     margin-top: 30px;
@@ -237,9 +246,12 @@ footer h4{
 .table-bordered > thead > tr > th{
     background-color: #8d8d8d;
     color: #fff;
-    padding: 8px;
-    text-align: center;
+    padding: 8px 3px;
+    text-align: left;
     border-left: 1px solid #fff;
+}
+.table-bordered > thead > tr > th label{
+    margin: 0;
 }
 .table-bordered > thead > tr > th:first-child{
     border-left: none;
@@ -247,17 +259,22 @@ footer h4{
 .panel-body{
     padding: 0;
 }
-.table-bordered > tbody> tr > td{
-    color: #706f6f;
-    font-size: 15px;
-    padding:8px;
-    border: 0;
+.show-result-table .table-bordered > tbody> tr > td{
+    padding:8px 3px;
 }
+.table-bordered > tbody> tr > td{
+    color: #272727;
+    font-size: 13px;
+    padding:8px 15px;
+    border: 0;
+    width:20%;
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: #eeeeee;
 }
-.table-bordered > tbody> tr > td label{
-    font-size: 15px;
+.table-bordered > tbody> tr > td label, .edit-table .table tbody> tr > td label {
+    font-size: 13px;
     color: #181818;
     font-weight: normal;
 }
@@ -268,9 +285,10 @@ footer h4{
     text-align: left;
     font-weight: normal;
 }
-.editable-input input[type="text"],.editable-input input[type="button"],.editable-input input[type="submit"]   {
+.editable-input input[type="text"],.editable-input input[type="button"],.editable-input input[type="submit"],.editable-input input[type="url"]    {
     border-radius: 0;
     margin: 0 3px;
+    font-size: 13px;
 }
 .editable-input input[type="text"]{
     height: 30px;
@@ -287,6 +305,12 @@ footer h4{
 hr{
     margin-bottom: 0;
 }
-.table-responsive{
-    margin-top: 20px;
+
+.edit-table .table > tbody > tr > td {
+    border-top: none;
+    padding: 8px 15px;
 }
+.div {
+    transition: all .3s ease-in-out;
+}
+
