@@ -35,6 +35,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '!build/.git'], {dot: true
 // 3rd party libraries
 gulp.task('vendor', function () {
     return gulp.src([
+            'app/assets/fonts/**',
             'bower_components/bootstrap/dist/fonts/**',
             'bower_components/font-awesome/fonts/**'
         ])
