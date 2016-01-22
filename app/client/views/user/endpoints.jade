@@ -17,49 +17,45 @@
                                     | {{endpointItem.name}}
                                 i.pull-right
                                     img(src="/images/arrow-circle-right-mini.png")
-                        div.mt30(ng-hide="editMode === endpoint._id")
-                            table.table.table-bordered
-                                tr
-                                    td
-                                        label.pull-left Name
-                                    td
-                                        span
-                                            | {{endpointItem.name}}
-                                    td
-                                        div.pull-right
-                                            button.btn.btn-info.btn-mini.bg-primary(ng-click='editEndpoint(endpointItem)')
-                                                i.fa.fa-pencil-square-o
-                                            button.btn.btn-danger.btn-mini(ng-click='deleteEndpoint(endpointItem._id)')
-                                                i.fa.fa-trash
-                                tr
-                                    td
-                                        label.pull-left Base URL
-                                    td(colspan=2)
-                                        span
-                                            | {{endpointItem.baseUrl}}
-                                tr
-                                    td
-                                        label.pull-left Sub Directory
-                                    td(colspan=2)
-                                        span
-                                            | {{endpointItem.subDirectory}}
-                                tr
-                                    td
-                                        label.pull-left Description
-                                    td(colspan=2)
-                                        span
-                                            | {{endpointItem.description}}
-                                tr
-                                    td
-                                        label.pull-left Disabled
-                                    td(colspan=2)
-                                        span
-                                            | {{endpointItem.isDisabled}}
-
-                                tr
-                                    td.h-line(colspan=3)
-                                        label.f17 Routes
-
+                        div.mt30.endpoints-table(ng-hide="editMode === endpoint._id")
+                            .col-md-3
+                                label.pull-left Name
+                            .col-md-5
+                                span
+                                    | {{endpointItem.name}}
+                            .col-md-4
+                                div.pull-right
+                                    button.btn.btn-info.btn-mini.bg-primary(ng-click='editEndpoint(endpointItem)')
+                                        i.fa.fa-pencil-square-o
+                                    button.btn.btn-danger.btn-mini(ng-click='deleteEndpoint(endpointItem._id)')
+                                        i.fa.fa-trash
+                            .clearfix
+                            .col-md-3
+                                label.pull-left Base URL
+                            .col-md-9
+                                span
+                                    | {{endpointItem.baseUrl}}
+                            .clearfix
+                            .col-md-3
+                                label.pull-left Sub Directory
+                            .col-md-9
+                                span
+                                    | {{endpointItem.subDirectory}}
+                            .clearfix
+                            .col-md-3
+                                label.pull-left Description
+                            .col-md-9
+                                span
+                                    | {{endpointItem.description}}
+                            .clearfix
+                            .col-md-3
+                                label.pull-left Disabled
+                            .col-md-9
+                                span
+                                    | {{endpointItem.isDisabled}}
+                            .clearfix
+                            .col-md-12.h-line
+                                label.f17 Routes
                             .clearfix
                             .table-responsive.panel-less-padding.show-result-table
                                 table.table.table-hover.table-bordered.table-striped
@@ -88,7 +84,7 @@
                         div.editable-input(ng-show="editMode === endpointItem._id")
                             form(name='endpointEditFrm', novalidate='true' ng-show='editMode')
                                 .clearfix
-                                .table-responsive.panel-less-padding.edit-table.cssFade
+                                .table-responsive.panel-less-padding.edit-table
                                     table.table
                                         tr
                                             td
@@ -140,7 +136,7 @@
                                                         i.fa.fa-plus
                                     .clearfix
                                     .table-responsive
-                                        table.table.table-hover.table-bordered.table-striped
+                                        table.table.table-hover.table-bordered.table-striped.edit-list
                                             thead
                                                 tr
                                                     th
