@@ -1,16 +1,19 @@
 'use strict';
 
 window.$ = window.jQuery = require('../../bower_components/jquery/dist/jquery');
-require('lodash');
-require('later');
+
 require('../../bower_components/angular');
+require('../../bower_components/bootstrap/dist/js/bootstrap.js');
 require('../../bower_components/angular-ui-router/release/angular-ui-router');
 require('../../bower_components/angular-cookies');
-require('../../bower_components/bootstrap/dist/js/bootstrap.js');
 require('../../bower_components/AngularJS-Toaster/toaster');
 require('../../bower_components/angular-bootstrap/ui-bootstrap-tpls');
 require('../../bower_components/angular-ui-switch/angular-ui-switch');
 require('../../bower_components/angular-permission/dist/angular-permission');
+require('../../bower_components/angular-animate/angular-animate');
+
+require('lodash');
+require('later');
 
 angular
     .module('klarifyApp', [
@@ -19,7 +22,8 @@ angular
         'toaster',
         'ui.bootstrap',
         'uiSwitch',
-        'permission'
+        'permission',
+        'ngAnimate'
     ])
     .run(
         [
