@@ -9,7 +9,8 @@ angular
             '$state',
             'toaster',
             'Auth',
-            function ($scope, $http, $cookies, $state, toaster, Auth) {
+            '$uibModalInstance',
+            function ($scope, $http, $cookies, $state, toaster, Auth, $modalInstance) {
                 $scope.login = function () {
                     $http
                         .post('/api/session/sign-in', $scope.user)
@@ -18,6 +19,7 @@ angular
                             $scope.loginForm.$setPristine();
                             $cookies.put('token', success.data.token);
                             Auth.setUser(success.data.credentials);
+                            $modalInstance.dismiss();
                             $state.go('dashboard');
                         })
                         .catch(function (err) {

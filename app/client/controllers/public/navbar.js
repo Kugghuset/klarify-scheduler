@@ -10,8 +10,8 @@ angular
             'Auth',
             '$state',
             'toaster',
-            '$http',
-            function($scope, $rootScope, Auth, $state, toaster) {
+            '$uibModal',
+            function($scope, $rootScope, Auth, $state, toaster, $modal) {
                 $scope.user = null;
 
                 $scope.$on('$stateChangeSuccess', function () {
@@ -36,7 +36,23 @@ angular
                         body: 'Logged out',
                         showCloseButton: true
                     });
-                    $state.go('login');
-                }
+                    $state.go('home');
+                };
+
+                $scope.openLoginModal = function () {
+                    $modal.open({
+                        animation: true,
+                        templateUrl: './views/public/login.html',
+                        controller: 'LoginCtrl'
+                    });
+                };
+
+                $scope.openRegisterModal = function () {
+                    $modal.open({
+                        animation: true,
+                        templateUrl: './views/public/register.html',
+                        controller: 'RegisterCtrl'
+                    });
+                };
             }
         ]);

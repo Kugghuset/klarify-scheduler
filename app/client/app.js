@@ -19,8 +19,8 @@ angular
     .module('klarifyApp', [
         'ui.router',
         'ngCookies',
-        'toaster',
         'ui.bootstrap',
+        'toaster',
         'uiSwitch',
         'permission',
         'ngAnimate'
@@ -79,28 +79,6 @@ angular
                 data: {
                     permissions: {
                         only: ['public', 'user']
-                    }
-                }
-            });
-
-            $stateProvider.state('register', {
-                url: '/register',
-                templateUrl:'./views/public/register.html',
-                controller: 'RegisterCtrl',
-                data: {
-                    permissions: {
-                        only: ['public']
-                    }
-                }
-            });
-
-            $stateProvider.state('login', {
-                url: '/login',
-                templateUrl: './views/public/login.html',
-                controller: 'LoginCtrl',
-                data: {
-                    permissions: {
-                        only: ['public']
                     }
                 }
             });

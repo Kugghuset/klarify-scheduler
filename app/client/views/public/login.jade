@@ -1,5 +1,7 @@
-.container
-    .well.col-md-6
+.modal-content
+    .modal-header
+        |Login
+    .modal-body
         form(name = 'loginForm', ng-submit='login()' novalidate = 'novalidate')
             .form-group(data-ng-class = "{'has-error': loginForm.email.$dirty && loginForm.email.$invalid }")
                 label

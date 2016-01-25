@@ -5,9 +5,9 @@ nav.navbar.navbar-default.navbar-header-bg(ng-controller='navbarCtrl')
             a.navbar-brand(href='', ng-click="logoClick()") Klarify Scheduler
             ul.nav.navbar-nav.pull-right(ng-hide='user')
                 li
-                    a(href='#/register') Sign Up
+                    a(href='', ng-click="openRegisterModal()") Sign Up
                 li
-                    a(href='#/login') Sign In
+                    a(href='', ng-click="openLoginModal()") Sign In
             ul.nav.navbar-nav.pull-right(ng-show='user')
                 li.dropdown
                     a.dropdown-toggle(href='', data-toggle='dropdown')

@@ -1,5 +1,7 @@
-.container
-    .well.col-md-6
+.modal-content
+    .modal-header
+        | Register
+    .modal-body
         form(name = 'regForm', ng-submit="register()" novalidate = 'novalidate')
             .row
                 .form-group.col-md-6(data-ng-class = "{'has-error': regForm.fName.$dirty && regForm.fName.$invalid }")
@@ -38,4 +40,3 @@
 
                 br
                 input.btn.btn-primary.pull-right(type="submit", value="Register", data-ng-disabled="regForm.$invalid")
-
