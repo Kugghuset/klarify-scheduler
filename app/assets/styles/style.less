@@ -25,6 +25,10 @@
 
 .user-endpoints{
 margin-bottom: 30px;
+    position: relative;
+}
+.user-endpoints:nth-child(odd){
+    clear: both;
 }
 .user-endpoints .table-bordered{
     width:100%;
@@ -37,13 +41,20 @@ margin-bottom: 30px;
 }
 body{
     font-family: 'myriadproregular';
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
 }
 .mt30{
     margin-top: 30px;
 }
+.mt50{
+    margin-top: 50px !important;
+}
+
 .f17{
     font-size: 17px !important;
 }
+
 /*---------------Header.css----------*/
 
 a{
@@ -137,15 +148,14 @@ a:focus {
 .fa.fa-angle-down{
     margin: 0 5px;
 }
-
+.create-endpoints-btn i{
+    margin: 0 10px;
+}
 /*-------------------footer-css------------*/
 
 footer{
     color: #fff;
     background-color: #424243;
-    position: absolute;
-    bottom: 0;
-    height: 120px;
     width: 100%;
 }
 footer ul{
@@ -170,9 +180,31 @@ footer h4{
     font-size: 12px;
     margin-top: 50px;
 }
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -120px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+.push{
+    height:120px;
+}
+/* Set the fixed height of the footer here */
+footer {
+    height: 120px;
+}
 /*-----------end-footer-----*/
 .title{
     margin-top: 0;
+    position: relative;
 }
 .title:before{
     content:'';
@@ -215,12 +247,16 @@ footer h4{
 .user-endpoints h2 i{
     margin-top: 10px;
 }
-
-.panel-default, .panel-default > .panel-heading {
+.panel-body {
+    background-color: #fff;
     float: left;
     width: 100%;
-
+    z-index: 10;
+    border: 1px solid #cfcfcf;
+    z-index: 100;
+    position: relative;
 }
+
 .panel-default > .panel-heading{
     background-color: #e9e9e9;
 }
@@ -316,3 +352,18 @@ hr{
     transition: all .3s ease-in-out;
 }
 
+/*--------------.create-endpoint- css----------------*/
+.create-endpoint-wrap .add-endpoint{
+    background-color: #e9e9e9;
+    padding: 10px;
+}
+
+.topline{
+    border-bottom: 5px solid #18c5bc;
+}
+
+.control-label h4{
+    float: left;
+    width: 100%;
+    font-weight: normal;
+}

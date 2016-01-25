@@ -8,6 +8,8 @@ html(lang='en', ng-app='klarifyApp')
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
                 display: none !important;
             }
+        script(type="text/javascript", src="./app.js")
+        link(href="css/main.css", rel="stylesheet")
     body(data-ng-cloak = '')
         //add header bar directive named nav-bar
         #wrap.ng-cloak
@@ -17,5 +19,3 @@ html(lang='en', ng-app='klarifyApp')
           .push
         footer-bar
             div(ng-include="'views/footer.html'")
-        script(type="text/javascript", src="./app.js")
-        link(href="css/main.css", rel="stylesheet")
