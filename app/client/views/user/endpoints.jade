@@ -219,8 +219,8 @@
                                 button.btn.btn-info.pull-right.btn-mini.bg-primary(ng-click='addRoute()', title="Add new route")
                                     i.fa.fa-plus
             .row
-                .col-md-offset-3.col-md-6.add-endpoint
-                    div(ng-repeat='route in endpoint.routes track by $index')
+                .col-md-offset-3.col-md-6.add-endpoint(ng-repeat='route in endpoint.routes track by $index')
+                    div
                         button.btn.btn-danger.btn-mini.pull-right(ng-click='deleteRoute($index)', ng-disabled="endpoint.routes.length === 1")
                             i.fa.fa-trash
                         ng-form(name='routeFrm')
