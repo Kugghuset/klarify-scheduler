@@ -39,13 +39,16 @@ margin-bottom: 30px;
 .presets {
     margin-bottom: 30px;
 }
+html{
+   height: 100%;
+}
 body{
     font-family: 'myriadproregular';
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
 .mt30{
-    margin-top: 30px;
+    margin-top: 30px !important;
 }
 .mt50{
     margin-top: 50px !important;
@@ -319,10 +322,14 @@ footer {
     text-align: left;
     font-weight: normal;
 }
-.editable-input input[type="text"],.editable-input input[type="button"],.editable-input input[type="submit"],.editable-input input[type="url"]    {
+.editable-input input   {
     border-radius: 0;
     margin: 0 3px;
     font-size: 13px;
+}
+.editable-input label{
+    font-weight: normal;
+    margin-left: 3px;
 }
 .editable-input input[type="text"]{
     height: 30px;
@@ -367,4 +374,11 @@ hr{
     float: left;
     width: 100%;
     font-weight: normal;
+}
+.modal-header h3.title:before{
+    width: 40px;
+    top: -4px;
+}
+.modal-header {
+    padding: 15px 15px 0;
 }

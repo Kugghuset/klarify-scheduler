@@ -43,7 +43,8 @@ angular
                     $modal.open({
                         animation: true,
                         templateUrl: './views/public/login.html',
-                        controller: 'LoginCtrl'
+                        controller: 'LoginCtrl',
+                        size: 'sm'
                     });
                 };
 
@@ -51,7 +52,8 @@ angular
                     $modal.open({
                         animation: true,
                         templateUrl: './views/public/register.html',
-                        controller: 'RegisterCtrl'
+                        controller: 'RegisterCtrl',
+                        size: 'sm'
                     });
                 };
             }

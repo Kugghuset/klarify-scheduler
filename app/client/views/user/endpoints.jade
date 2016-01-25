@@ -181,33 +181,38 @@
                 form(name='endpointFrm', novalidate='true')
                 .form-horizontal
                     .form-group(data-ng-class="{'has-error': endpointFrm.name.$dirty && endpointFrm.name.$invalid }")
-                        label.col-md-3.control-label
-                            | Endpoint Name
+                        .col-md-3
+                            label.control-label
+                                | Endpoint Name
                         .col-md-9
                             input.form-control(type='text', name='name', data-ng-model='endpoint.name', required='required', placeholder='Endpoint Name...', autocomplete='off')
                             div(data-ng-show='endpointFrm.name.$dirty && endpointFrm.name.$invalid')
                                 span.help-block(data-ng-show='!endpointFrm.name.hasFocus && endpointFrm.name.$error.required') Required
                     .form-group(data-ng-class="{'has-error': endpointFrm.baseUrl.$dirty && endpointFrm.baseUrl.$invalid }")
-                        label.col-md-3.control-label
-                            | Base URL
+                        .col-md-3
+                            label.control-label
+                                | Base URL
                         .col-md-9
                             input.form-control(type='url', name='baseUrl', data-ng-model='endpoint.baseUrl', placeholder='Base URL...', required='required', autocomplete='off')
                             div(data-ng-show='endpointFrm.baseUrl.$dirty && endpointFrm.baseUrl.$invalid')
                                 span.help-block(data-ng-show='!endpointFrm.baseUrl.hasFocus && endpointFrm.baseUrl.$error.required') Required
                                 span.help-block(data-ng-show='!endpointFrm.baseUrl.hasFocus && endpointFrm.baseUrl.$error.url') is not a valid url
                     .form-group
-                        label.col-md-3.control-label
-                            | Subdirectory
+                        .col-md-3
+                            label.control-label
+                                | Subdirectory
                         .col-md-9
                             input.form-control(type='text', name='subdir', data-ng-model='endpoint.subdirectory', placeholder='Subdirectory...', autocomplete='off')
                     .form-group
-                        label.col-md-3.control-label
-                            | Description
+                        .col-md-3
+                            label.control-label
+                                | Description
                         .col-md-9
                             input.form-control(type='text', name='desc', data-ng-model='endpoint.description', placeholder='Endpoint Description...', autocomplete='off')
                     .form-group
-                        label.col-md-3.control-label
-                            | Disabled
+                        .col-md-3
+                            label.control-label
+                                | Disabled
                         .col-md-9
                             switch.form-control(data-ng-model='endpoint.isDisabled')
             .row
@@ -220,37 +225,40 @@
                                     i.fa.fa-plus
             .row
                 .col-md-offset-3.col-md-6.add-endpoint(ng-repeat='route in endpoint.routes track by $index')
-                    div
-                        button.btn.btn-danger.btn-mini.pull-right(ng-click='deleteRoute($index)', ng-disabled="endpoint.routes.length === 1")
-                            i.fa.fa-trash
-                        ng-form(name='routeFrm')
-                            .form-horizontal
-                                .form-group
-                                    label.col-sm-2.control-label
+                    button.btn.btn-danger.btn-mini.pull-right(ng-click='deleteRoute($index)', ng-disabled="endpoint.routes.length === 1")
+                        i.fa.fa-trash
+                    ng-form(name='routeFrm')
+                        .form-horizontal
+                            .form-group
+                                .col-sm-3
+                                    label.control-label
                                         | Name
-                                    .col-sm-10
-                                        input.form-control(type='text', name='name', data-ng-model='route.name', placeholder='Route Name...', autocomplete='off')
-                                .form-group(data-ng-class="{'has-error': routeFrm.subdir.$dirty && routeFrm.subdir.$invalid }")
-                                    label.col-sm-2.control-label
+                                .col-sm-9
+                                    input.form-control(type='text', name='name', data-ng-model='route.name', placeholder='Route Name...', autocomplete='off')
+                            .form-group(data-ng-class="{'has-error': routeFrm.subdir.$dirty && routeFrm.subdir.$invalid }")
+                                .col-sm-3
+                                    label.control-label
                                         | Subdirectory
-                                    .col-sm-10
-                                        input.form-control(type='text', name='subdir', data-ng-model='route.subDirectory', placeholder='Route Subdirectory...', required='required', autocomplete='off')
-                                .form-group(data-ng-class="{'has-error': routeFrm.interval.$dirty && routeFrm.interval.$invalid }")
-                                    label.col-sm-2.control-label
+                                .col-sm-9
+                                    input.form-control(type='text', name='subdir', data-ng-model='route.subDirectory', placeholder='Route Subdirectory...', required='required', autocomplete='off')
+                            .form-group(data-ng-class="{'has-error': routeFrm.interval.$dirty && routeFrm.interval.$invalid }")
+                                .col-sm-3
+                                    label.control-label
                                         | Interval
-                                    .col-sm-10
-                                        input.form-control(type='text', name='interval', data-ng-model='route.interval', placeholder='Route Interval...', required='required', autocomplete='off')
-                                        div(data-ng-show='routeFrm.interval.$dirty && routeFrm.interval.$invalid')
-                                            span.help-block(data-ng-show='!routeFrm.interval.hasFocus && routeFrm.interval.$error.required') Required
-                                .form-group(data-ng-class="{'has-error': routeFrm.schedule.$dirty && routeFrm.schedule.$invalid }")
-                                    label.col-sm-2.control-label
+                                .col-sm-9
+                                    input.form-control(type='text', name='interval', data-ng-model='route.interval', placeholder='Route Interval...', required='required', autocomplete='off')
+                                    div(data-ng-show='routeFrm.interval.$dirty && routeFrm.interval.$invalid')
+                                        span.help-block(data-ng-show='!routeFrm.interval.hasFocus && routeFrm.interval.$error.required') Required
+                            .form-group(data-ng-class="{'has-error': routeFrm.schedule.$dirty && routeFrm.schedule.$invalid }")
+                                .col-sm-3
+                                    label.control-label
                                         | Schedule
-                                    .col-sm-10
-                                        select.form-control(name='schedule', data-ng-model='route.schedule', ng-options='preset.value as preset.name for preset in presets')
-                                        div(data-ng-show='routeFrm.schedule.$dirty && routeFrm.schedule.$invalid')
-                                            span.help-block(data-ng-show='!routeFrm.schedule.hasFocus && routeFrm.schedule.$error.laterParse') is not a valid string
+                                .col-sm-9
+                                    select.form-control(name='schedule', data-ng-model='route.schedule', ng-options='preset.value as preset.name for preset in presets')
+                                    div(data-ng-show='routeFrm.schedule.$dirty && routeFrm.schedule.$invalid')
+                                        span.help-block(data-ng-show='!routeFrm.schedule.hasFocus && routeFrm.schedule.$error.laterParse') is not a valid string
 
-                                .clearfix
+                            .clearfix
                         hr
                     div.pull-right
                         input.btn.btn-danger(type='button', value='Cancel', ng-click='cancel()')
