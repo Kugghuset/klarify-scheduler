@@ -40,9 +40,10 @@
                                         .col-md-9
                                             p {{presetItem.value}}
                         div(ng-show="editMode === presetItem._id")
-                            div.pull-right
-                                input.btn.btn-danger.btn-mini(type='button', value='Cancel', ng-click='cancelEditMode()')
-                                input.btn.btn-info.btn-mini.bg-primary(type='submit', value='Update', ng-click='update()', ng-disabled='presetEditFrm.$invalid')
+                            .col-md-12
+                                div.pull-right
+                                    input.btn.btn-danger.btn-mini(type='button', value='Cancel', ng-click='cancelEditMode()')
+                                    input.btn.btn-info.btn-mini.bg-primary(type='submit', value='Update', ng-click='update()', ng-disabled='presetEditFrm.$invalid')
                             form.editable-input(name="presetEditFrm", novalidate='true')
                                 .form-horizontal.pull-left.w100
                                     .form-group(data-ng-class="{'has-error': presetEditFrm.name.$dirty && presetEditFrm.name.$invalid }")
@@ -80,20 +81,22 @@
                 form(name="presetFrm", novalidate='true')
                     .form-horizontal
                         .form-group(data-ng-class="{'has-error': presetFrm.name.$dirty && presetFrm.name.$invalid }")
-                            label.col-md-2.control-label
-                                | Preset Name
-                            .col-md-10
-                                input.form-control(type='text', name='name', data-ng-model='preset.name', required='required', placeholder='Enter Name...', autocomplete='off')
+                            .col-md-3
+                                label.control-label
+                                    | Preset Name
+                            .col-md-9
+                                input.form-control(type='text', name='name', data-ng-model='preset.name', required='required', placeholder=' Name...', autocomplete='off')
                                 div(data-ng-show='presetFrm.name.$dirty && presetFrm.name.$invalid')
                                     span.help-block(data-ng-show='!presetFrm.name.hasFocus && presetFrm.name.$error.required') Required
                     .form-horizontal
                         .form-group(data-ng-class="{'has-error': presetFrm.value.$dirty && presetFrm.value.$invalid }")
-                            label.col-md-2.control-label
-                                | Preset Value
-                            .col-md-10
-                                input.form-control(type='text', name='value', later-parse, data-ng-model='preset.value', required='required', placeholder='Enter Value...', autocomplete='off')
+                            .col-md-3
+                                label.control-label
+                                    | Preset Value
+                            .col-md-9
+                                input.form-control(type='text', name='value', later-parse, data-ng-model='preset.value', required='required', placeholder='Value...', autocomplete='off')
                                 div(data-ng-show='presetFrm.value.$dirty && presetFrm.value.$invalid')
                                     span.help-block(data-ng-show='!presetFrm.value.hasFocus && presetFrm.value.$error.required') Required
                                     span.help-block(data-ng-show='!presetFrm.value.hasFocus && presetFrm.value.$error.laterParse') is not a valid string
                     div.pull-right
-                        input.btn.btn-success(type='submit', value='Save', ng-click='save()', ng-disabled='presetFrm.$invalid')
+                        input.btn.btn-success.mt30(type='submit', value='Save', ng-click='save()', ng-disabled='presetFrm.$invalid')
