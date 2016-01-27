@@ -40,6 +40,7 @@ angular
 
                 $scope.createPreset = function () {
                     $scope.view = 'formView';
+                    $scope.preset = {};
                 };
 
                 $scope.cancel = function () {

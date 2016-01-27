@@ -97,8 +97,9 @@
                                                     span.help-block(data-ng-show='!endpointEditFrm.name.hasFocus && endpointEditFrm.name.$error.required') Required
                                             td
                                                 div.pull-right
+                                                    input.btn.btn-success.bg-primary(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
                                                     input.btn.btn-danger(type='button', value='Cancel', ng-click='cancelEdit()')
-                                                    input.btn.btn-success(type='submit', value='Update', ng-click='update()', ng-disabled='endpointFrm.$invalid')
+
                                             tr
                                                 td
                                                     span(data-ng-class="{'has-error': endpointEditFrm.baseUrl.$dirty && endpointEditFrm.baseUrl.$invalid }")
