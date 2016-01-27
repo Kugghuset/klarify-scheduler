@@ -42,8 +42,8 @@
                         div(ng-show="editMode === presetItem._id")
                             .col-md-12
                                 div.pull-right
-                                    input.btn.btn-danger.btn-mini(type='button', value='Cancel', ng-click='cancelEditMode()')
                                     input.btn.btn-info.btn-mini.bg-primary(type='submit', value='Update', ng-click='update()', ng-disabled='presetEditFrm.$invalid')
+                                    input.btn.btn-danger.btn-mini(type='button', value='Cancel', ng-click='cancelEditMode()')
                             form.editable-input(name="presetEditFrm", novalidate='true')
                                 .form-horizontal.pull-left.w100
                                     .form-group(data-ng-class="{'has-error': presetEditFrm.name.$dirty && presetEditFrm.name.$invalid }")
