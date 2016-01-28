@@ -119,7 +119,10 @@ angular
 
             //otherwise redirect to homepage
             $urlRouterProvider
-                .otherwise('/home');
+                .otherwise( function($injector) {
+                    var $state = $injector.get("$state");
+                    $state.go('home');
+                });
 
             // Adds authInterceptor to http requests
             $httpProvider.interceptors.push('authInterceptor');

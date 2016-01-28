@@ -41,7 +41,7 @@ angular
             /**
             * Gets the local user.
             *
-            * @return {Objec} (User)
+            * @return {Object} (User)
             */
             getCurrentUser: function () {
                 return _user;
