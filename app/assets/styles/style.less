@@ -220,7 +220,7 @@ footer {
     height: 2px;
     background-color: #01bfb5;
     position: absolute;
-    top: 0;
+    top: -5px;
 }
 .create-endpoints-btn{
     border-radius: 0;
@@ -275,7 +275,18 @@ footer {
 .panel-title a{
     width: 100%;
     display: inline-block;
+    text-align: center;
 }
+.panel-in .panel-heading{
+    border-top: 4px solid #01bfb5;
+    background-color: #fff;
+    border-right: 1px solid #cfcfcf;
+    border-left: 1px solid #cfcfcf;
+}
+.panel-in{
+     box-shadow: none;
+     border: 0;
+ }
 .btn-mini{
     border: 0;
     border-radius: 0;
@@ -409,3 +420,7 @@ hr{
     transition: height 0.35s ease;
 }
 
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+    transition: opacity 0.1s ease-out;
+    opacity: 0;
+}
