@@ -11,14 +11,16 @@
         .row
             uib-accordion(close-others='true')
                 .col-md-6.presets.user-endpoints(ng-repeat='presetItem in presets track by $index')
-                    uib-accordion-group
+                    uib-accordion-group(ng-init="status = {isOpen: false}" is-open="status.isOpen", ng-class="{'panel-in': status.isOpen}")
                         uib-accordion-heading
-                            h2
+                            h2(ng-hide='status.isOpen')
                                 span {{$index + 1}}
                                 p.text-capitalize.pull-left
                                     | {{presetItem.name}}
                                 i.pull-right
                                     img(src="/images/arrow-circle-right-mini.png")
+                            i(ng-show='status.isOpen')
+                                img(class='rotate', src="/images/arrow-circle-right-mini.png")
                         .col-md-12
                             div(ng-hide="editMode === presetItem._id")
                                 .col-md-12
