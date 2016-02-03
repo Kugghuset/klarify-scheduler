@@ -35,10 +35,25 @@ gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '!build/.git'], {dot: true
 // 3rd party libraries
 gulp.task('vendor', function () {
     return gulp.src([
+            'app/assets/fonts/**',
             'bower_components/bootstrap/dist/fonts/**',
             'bower_components/font-awesome/fonts/**'
         ])
         .pipe(gulp.dest('build/fonts'));
+});
+
+// Images
+gulp.task('images', function () {
+    src.images = 'app/assets/images/**';
+
+    return gulp.src(src.images)
+            .pipe($.changed(DEST + '/images'))
+            .pipe($.imagemin({
+                progressive: true,
+                interlaced: true
+            }))
+            .pipe(gulp.dest(DEST + '/images'))
+            .pipe($.size({title: 'images'}))
 });
 
 // CSS style sheets
@@ -46,7 +61,7 @@ gulp.task('styles', function () {
     src.styles = 'app/assets/styles/*';
 
     return gulp
-        .src([ 'app/assets/styles/main.less'])
+        .src(src.styles)
         .pipe($.plumber())
         .pipe($.less())
         .on('error', console.error.bind(console))
@@ -59,14 +74,19 @@ gulp.task('styles', function () {
 
 // compile Index page.
 gulp.task('jade', function() {
-    return gulp.src('app/client/index.jade')
+    src.index = 'app/client/index.jade';
+    return gulp.src(src.index)
         .pipe($.jade())
         .pipe(gulp.dest('build/'));
 });
 
 // compile views page.
 gulp.task('views', function() {
-    src.views = 'app/client/views/**/*.jade';
+    src.views = [
+        'app/client/views/**/*.jade',
+        'app/client/directives/**/*.jade',
+        'app/client/layout/**/*.jade'
+    ];
     return gulp
             .src(src.views)
             .pipe($.jade())
@@ -75,17 +95,17 @@ gulp.task('views', function() {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['vendor', 'styles', 'jade', 'views', 'bundle'], cb);
+    runSequence(['vendor', 'styles', 'images', 'jade', 'views', 'bundle'], cb);
 });
 
 // Build and start watching for modifications
 gulp.task('build:watch', function (cb) {
     watch = true;
-    src.layout = 'app/client/layout/*.jade';
     runSequence('build', function () {
         gulp.watch(src.styles, ['styles']);
         gulp.watch(src.views, ['views']);
-        gulp.watch(src.layout, ['jade']);
+        gulp.watch(src.index, ['jade']);
+        gulp.watch(src.images, ['images']);
         cb();
     });
 });
@@ -181,16 +201,4 @@ gulp.task('sync', ['serve'], function (cb) {
     ), function (file) {
         browserSync.reload(path.relative(__dirname, file.path));
     });
-});
-
-// Run PageSpeed Insights
-gulp.task('pagespeed', function (cb) {
-    var pagespeed = require('psi');
-    // Update the below URL to the public URL of your site
-    pagespeed.output('example.com', {
-        strategy: 'mobile'
-        // By default we use the PageSpeed Insights free (no API key) tier.
-        // Use a Google Developer API key if you have one: http://goo.gl/RkN0vE
-        // key: 'YOUR_API_KEY'
-    }, cb);
 });

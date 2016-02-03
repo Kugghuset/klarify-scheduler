@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 require('./routes')(app, logger);
+
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
@@ -20,8 +21,18 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 
+app.use(function (err, req, res, next) {
+    if (err.message === 'validation error') {
+        res.status(err.status).json(err);
+    } else {
+        next(err);
+    }
+});
+
 // Passport setup
 require('./auth/passport-setup')(app);
+require('./crons').runAllCrons();
+require('./presets')();
 
 var server = app.listen(Config.web.port, function () {
     console.log('App listening on port %s', Config.web.port);

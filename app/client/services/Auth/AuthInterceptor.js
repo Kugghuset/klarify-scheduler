@@ -21,22 +21,4 @@ angular
                 return $q.reject(response);
             }
         }
-    }])
-    .run(['$rootScope', '$location', 'Auth', '$http', function ($rootScope, $location, Auth, $http) {
-
-        // Add location change interceptors here.
-        // e.x. checking for LoggedIn or something.
-
-        $rootScope.$on('$stateChangeSuccess', function () {
-
-            if (Auth.isLoggedIn() && !Auth.getCurrentUser()) {
-                $http
-                    .get('/api/session')
-                    .then(function (user) {
-                        Auth.setUser(user.data);
-                        $rootScope.$broadcast('AuthLoggedIn');
-                    });
-            }
-            window.scrollTo(0,0);
-        });
     }]);

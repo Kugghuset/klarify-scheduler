@@ -1,0 +1,47 @@
+[
+        {
+            "name": "Every 15 minutes",
+            "value": "every 15 min",
+            "userId": "default"
+        },
+        {
+            "name": "Every 30 minutes",
+            "value": "every 30 min",
+            "userId": "default"
+        },
+        {
+            "name": "Every 1 hour",
+            "value": "every 1 hour",
+            "userId": "default"
+        },
+        {
+            "name": "Every 2 hour",
+            "value": "every 2 hour",
+            "userId": "default"
+        },
+        {
+            "name": "Every 4 hour",
+            "value": "every 4 hour",
+            "userId": "default"
+        },
+        {
+            "name": "Every 8 hour",
+            "value": "every 8 hour",
+            "userId": "default"
+        },
+        {
+            "name": "At midnight",
+            "value": "at 00:00 am",
+            "userId": "default"
+        },
+        {
+            "name": "At 3 AM (03:00) in the morning",
+            "value": "at 3:00 am",
+            "userId": "default"
+        },
+        {
+            "name": "At 6 AM (06:00) in the morning",
+            "value": "at 6:00 am",
+            "userId": "default"
+        }
+]

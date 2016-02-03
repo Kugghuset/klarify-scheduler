@@ -1,8 +1,7 @@
 var passport = require('passport');
 
 module.exports = function (req, res, next) {
-
-        passport
+     passport
             .authenticate('jwt', {
                 successRedirect: '/',
                 failureRedirect: '/login',

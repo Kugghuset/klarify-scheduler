@@ -7,7 +7,9 @@ angular
         [
             '$scope',
             'Auth',
-            '$rootScope',
-            function ($scope, Auth, $rootScope) {
+            '$http',
+            'toaster',
+            function ($scope, Auth, $http, toaster) {
+
             }
         ]);

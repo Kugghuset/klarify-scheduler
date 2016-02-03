@@ -1,19 +1,21 @@
-nav.navbar.navbar-default(ng-controller='navbarCtrl')
+nav.navbar.navbar-default.navbar-header-bg(ng-controller='navbarCtrl')
     .container-fluid
         .navbar-header
         .container
-            a.navbar-brand(href='#') Klarify Scheduler
-            ul.nav.navbar-nav.pull-right(ng-hide='isLoggedIn')
+            a.navbar-brand(href='', ng-click="logoClick()") Klarify Scheduler
+            ul.nav.navbar-nav.pull-right(ng-hide='user')
                 li
-                    a(href='#/register') Sign Up
+                    a(href='', ng-click="openRegisterModal()") Sign Up
                 li
-                    a(href='#/login') Sign In
-            ul.nav.navbar-nav.pull-right(ng-show='isLoggedIn')
+                    a(href='', ng-click="openLoginModal()") Sign In
+            ul.nav.navbar-nav.pull-right(ng-show='user')
                 li.dropdown
-                    a(href='', class='dropdown-toggle', data-toggle='dropdown', data-hover='User Name')
+                    a.dropdown-toggle(href='', data-toggle='dropdown')
                         | {{user.email}}
                         i.fa.fa-angle-down.ml10
-                    ul.dropdown-menu(data-ng-click='collaspe()')
+                    ul.dropdown-menu
                         li
-                            a(href='javascript:void(0);', data-ng-click='logout()') Sign Out
+                            a(href='#/user/dashboard') Dashboard
+                        li
+                            a(href='', data-ng-click='logout()') Sign Out
 toaster-container
